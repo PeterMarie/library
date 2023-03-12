@@ -5,7 +5,8 @@
 <html>
 <head>
     <title>Library Home</title>
-    <link type="stylesheet">
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -50,6 +51,8 @@
         </section>
     </main>
     <footer>
-        <span>Created by Peter M. Ogwara c2021</span>
+        <span>Created by Peter and crown james c2021</span>
     </footer>
+    <script src="script.js" type="text/javascript"></script>
 </body>
+</html>
