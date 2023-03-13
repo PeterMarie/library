@@ -26,6 +26,17 @@ function ajaxpost(url, cFunction, formData) {
   xhr.send(formData);
 }
 
-$("#searchbar").on("change keyup", function (e) {
-  //$("#search_results").text("Worked");
+$("#searchbar").on("change keyup", async (e) => {
+  let key = $("#searchbar").val();
+
+  const response = await fetch("backend.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `task=search&key=${key}`,
+  });
+
+  const data = await response.text();
+  $("#search_results").text(data);
 });

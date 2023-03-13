@@ -51,7 +51,7 @@
         </section>
     </main>
     <footer>
-        <span>Created by Peter and crown james c2021</span>
+        <span>Created by Peter M. Ogwara &#169;2023</span>
     </footer>
     <script src="script.js" type="text/javascript"></script>
 </body>
