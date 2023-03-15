@@ -38,7 +38,14 @@
                         <input type="file" name="file" id="file_upload"/>
                     </fieldset>
                     <fieldset>
-                        <legend for="title">Title</legend><input type="text" name="title" id="title" />
+                        <legend for="title">Title</legend><input type="text" name="title" id="title" required />
+                    </fieldset>
+                    <fieldset>
+                        <legend for="subtitle">Subtitle</legend><input type="text" name="subtitle" id="subtitle" />
+                    </fieldset>
+                    <fieldset>
+                        <legend for="author">Author</legend><input type="text" name="author" id="author" /><button disabled>Add Author</button>
+                        <span id="authors"></span>
                     </fieldset>
                     <fieldset>
                         <legend for="new_tags">Tags</legend>

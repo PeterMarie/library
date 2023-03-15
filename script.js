@@ -27,16 +27,20 @@ function ajaxpost(url, cFunction, formData) {
 }
 
 $("#searchbar").on("change keyup", async (e) => {
-  let key = $("#searchbar").val();
+  let key = $("#searchbar").val().trim();
 
-  const response = await fetch("backend.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: `task=search&key=${key}`,
-  });
+  if (/\S*/g.test(key)) {
+    const response = await fetch("backend.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `task=search&key=${key}`,
+    });
 
-  const data = await response.text();
-  $("#search_results").text(data);
+    const data = await response.text();
+    $("#search_results").text(data);
+  } else {
+    $("#search_results").text("No data");
+  }
 });
