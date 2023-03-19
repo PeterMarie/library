@@ -11,9 +11,18 @@
                 $return['status'] = "success";
                 $return['key'] = $_POST['key'];
                 break;
-            
+
+            case 'retrieve':
+                $return = $book->retrieve($_POST['data']);
+                break;
+
+            case 'add_book':
+                $return = $_POST;
+                break;
+
             default:
-                # code...
+                $return['status'] = "failed";
+                $return['error'] = "Unknown error";
                 break;
         }
 
@@ -35,7 +44,7 @@
             $result_array['tags'] = array();
             $result_array['authors'] = array();
 
-            if(empty($_POST['key']) || ($_POST['key'] == " ")){
+            if(empty($_POST['key'])){
                 /*
                     If no search query is sent, no calls to the database will be made.
                     The returned object will be similar to that of n unfound query.
@@ -96,10 +105,38 @@
                     $count++;
                     $author = array();
                     $author['name'] = $search_result['name'];
-                    $result_array['authors'][$count] = $tags;
+                    $result_array['authors'][$count] = $author;
                 }
             }
 
+            return $result_array;
+        }
+
+        public function retrieve($data){
+            $result_array = array();
+            $result_array[$data] = array();
+
+            if(empty($_POST['key'])){
+                /*
+                    If no search query is sent, no calls to the database will be made.
+                    The returned object will be similar to that of n unfound query.
+                */
+            } else {
+                $key = "%" . $_POST['key'] . "%";
+            }
+
+            $count = 0;
+            $query = "SELECT * FROM {$data} WHERE name LIKE ? ";
+            $get_suggestions = $this->conn->prepare($query);
+            $get_suggestions->bind_param("s", $key);
+            $get_suggestions->execute();
+            $result = $get_suggestions->get_result();
+            while($suggestions = $result->fetch_assoc()){
+                $count++;
+                $suggestion = array();
+                $suggestion['name'] = $suggestions['name'];
+                $result_array[$data][$count] = $suggestion;
+            }
             return $result_array;
         }
     }

@@ -11,7 +11,7 @@
 <body>
     <header>
         <h1>Personal Library</h1>
-        <a href="#add_book_form" ><button>Add Book</button></a>
+        <a href="#add_book" ><button>Add Book</button></a>
     </header>
     <main>
         <section>
@@ -30,9 +30,9 @@
             <section id="results">
 
             </section>
-            <section id="add_book_form">
+            <section id="add_book">
                 <h2>Add Book</h2>
-                <form>
+                <form id="add_book_form">
                     <fieldset>
                         <legend for="file">Upload File</legend>
                         <input type="file" name="file" id="file_upload"/>
@@ -44,12 +44,22 @@
                         <legend for="subtitle">Subtitle</legend><input type="text" name="subtitle" id="subtitle" />
                     </fieldset>
                     <fieldset>
-                        <legend for="author">Author</legend><input type="text" name="author" id="author" /><button disabled>Add Author</button>
+                        <legend for="category">Category</legend>
+                        <select name="category" id="category">
+                            <option>Select Category</option>
+                            <option value="1">Fiction</option>
+                            <option value="2">Non-Fiction</option>
+                            <option value="3">Journal Piece/Article</option>
+                            <option value="4">Full Textbook</option>
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <legend for="author">Author</legend><input type="text" class="customizible-items" name="author" id="author" data-src="authors" /><button disabled>Add Author</button>
                         <span id="authors"></span>
                     </fieldset>
                     <fieldset>
                         <legend for="new_tags">Tags</legend>
-                        <input type="text" name="new_tag" id="new_tag" /><button disabled>Add tag</button>
+                        <input type="text" class="customizible-items" name="new_tag" id="new_tag" data-src="tags" /><button disabled>Add tag</button>
                         <span id="tags"></span>
                     </fieldset>
                     <button type="submit">Add to Library</button>
