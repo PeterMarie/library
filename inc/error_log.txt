@@ -1,0 +1,49 @@
+[02-Jun-2025 02:19:26 Europe/Berlin] PHP Warning:  Undefined variable $mysqli in C:\xampp\htdocs\library\library\upload.php on line 5
+[02-Jun-2025 02:19:26 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in C:\xampp\htdocs\library\library\upload.php:5
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\upload.php on line 5
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Undefined array key "title" in C:\xampp\htdocs\library\library\upload.php on line 5
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Undefined array key "subcategory_id" in C:\xampp\htdocs\library\library\upload.php on line 6
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Undefined array key "authors" in C:\xampp\htdocs\library\library\upload.php on line 7
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Undefined array key "publisher" in C:\xampp\htdocs\library\library\upload.php on line 8
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Undefined array key "publication_year" in C:\xampp\htdocs\library\library\upload.php on line 9
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Undefined array key "edition" in C:\xampp\htdocs\library\library\upload.php on line 10
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Undefined array key "isbn" in C:\xampp\htdocs\library\library\upload.php on line 11
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Undefined array key "language_id" in C:\xampp\htdocs\library\library\upload.php on line 12
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Undefined array key "page_count" in C:\xampp\htdocs\library\library\upload.php on line 13
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Undefined array key "format_id" in C:\xampp\htdocs\library\library\upload.php on line 14
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Undefined array key "status_id" in C:\xampp\htdocs\library\library\upload.php on line 15
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Undefined array key "summary" in C:\xampp\htdocs\library\library\upload.php on line 16
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Undefined array key "keywords" in C:\xampp\htdocs\library\library\upload.php on line 17
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Undefined array key "document_file" in C:\xampp\htdocs\library\library\upload.php on line 27
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\library\library\upload.php on line 27
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Undefined array key "document_file" in C:\xampp\htdocs\library\library\upload.php on line 28
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\library\library\upload.php on line 28
+[02-Jun-2025 02:20:57 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: mime_content_type(): Argument #1 ($filename) must be of type resource|string, null given in C:\xampp\htdocs\library\library\upload.php:29
+Stack trace:
+#0 C:\xampp\htdocs\library\library\upload.php(29): mime_content_type(NULL)
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\upload.php on line 29
+[02-Jun-2025 10:02:35 Europe/Berlin] PHP Warning:  Undefined array key "title" in C:\xampp\htdocs\library\library\upload.php on line 5
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Undefined array key "subcategory_id" in C:\xampp\htdocs\library\library\upload.php on line 6
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Undefined array key "authors" in C:\xampp\htdocs\library\library\upload.php on line 7
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Undefined array key "publisher" in C:\xampp\htdocs\library\library\upload.php on line 8
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Undefined array key "publication_year" in C:\xampp\htdocs\library\library\upload.php on line 9
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Undefined array key "edition" in C:\xampp\htdocs\library\library\upload.php on line 10
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Undefined array key "isbn" in C:\xampp\htdocs\library\library\upload.php on line 11
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Undefined array key "language_id" in C:\xampp\htdocs\library\library\upload.php on line 12
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Undefined array key "page_count" in C:\xampp\htdocs\library\library\upload.php on line 13
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Undefined array key "format_id" in C:\xampp\htdocs\library\library\upload.php on line 14
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Undefined array key "status_id" in C:\xampp\htdocs\library\library\upload.php on line 15
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Undefined array key "summary" in C:\xampp\htdocs\library\library\upload.php on line 16
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Undefined array key "keywords" in C:\xampp\htdocs\library\library\upload.php on line 17
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Undefined array key "document_file" in C:\xampp\htdocs\library\library\upload.php on line 27
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\library\library\upload.php on line 27
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Undefined array key "document_file" in C:\xampp\htdocs\library\library\upload.php on line 28
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\library\library\upload.php on line 28
+[02-Jun-2025 10:02:36 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: mime_content_type(): Argument #1 ($filename) must be of type resource|string, null given in C:\xampp\htdocs\library\library\upload.php:29
+Stack trace:
+#0 C:\xampp\htdocs\library\library\upload.php(29): mime_content_type(NULL)
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\upload.php on line 29

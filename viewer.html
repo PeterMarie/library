@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Document Viewer</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .search-container {
+            margin-bottom: 20px;
+        }
+        .search-container input, .search-container select {
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .document-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .document-item {
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .document-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .document-meta {
+            font-size: 14px;
+            color: #555;
+        }
+        .download-link {
+            margin-top: 10px;
+            display: inline-block;
+            text-decoration: none;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <h1>📚 Library Document Viewer</h1>
+
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Search by title, author, or keyword">
+        <select id="category-filter">
+            <option value="">All Categories</option>
+        </select>
+        <select id="language-filter">
+            <option value="">All Languages</option>
+        </select>
+        <select id="format-filter">
+            <option value="">All Formats</option>
+        </select>
+        <select id="status-filter">
+            <option value="">All Statuses</option>
+        </select>
+        <button id="search-btn">🔍 Search</button>
+    </div>
+
+    <div class="document-list" id="document-list">
+        <!-- Documents will be loaded here -->
+    </div>
+
+    <script>
+        function fetchFilters() {
+            $.getJSON('get_filters.php', function(data) {
+                data.categories.forEach(item => {
+                    $('#category-filter').append(`<option value="${item.id}">${item.name}</option>`);
+                });
+                data.languages.forEach(item => {
+                    $('#language-filter').append(`<option value="${item.id}">${item.name}</option>`);
+                });
+                data.formats.forEach(item => {
+                    $('#format-filter').append(`<option value="${item.id}">${item.name}</option>`);
+                });
+                data.statuses.forEach(item => {
+                    $('#status-filter').append(`<option value="${item.id}">${item.name}</option>`);
+                });
+            });
+        }
+
+        function fetchDocuments() {
+            const filters = {
+                search: $('#search').val(),
+                category: $('#category-filter').val(),
+                language: $('#language-filter').val(),
+                format: $('#format-filter').val(),
+                status: $('#status-filter').val()
+            };
+
+            $.post('list_documents.php', filters, function(data) {
+                const list = $('#document-list');
+                list.empty();
+
+                if (data.length === 0) {
+                    list.append('<div>No documents found.</div>');
+                    return;
+                }
+
+                data.forEach(doc => {
+                    const html = `
+                        <div class="document-item">
+                            <div class="document-title">${doc.title}</div>
+                            <div class="document-meta">
+                                <strong>Authors:</strong> ${doc.authors.join(", ")}<br>
+                                <strong>Category:</strong> ${doc.category} / ${doc.subcategory}<br>
+                                <strong>Year:</strong> ${doc.publication_year} | 
+                                <strong>Format:</strong> ${doc.format} | 
+                                <strong>Language:</strong> ${doc.language} | 
+                                <strong>Status:</strong> ${doc.status}
+                            </div>
+                            <a href="${doc.file_path}" target="_blank" class="download-link"><i class="fa fa-download"></i> Download</a>
+                        </div>
+                    `;
+                    list.append(html);
+                });
+            }, 'json');
+        }
+
+        $(document).ready(function() {
+            fetchFilters();
+            fetchDocuments();
+
+            $('#search-btn').on('click', function() {
+                fetchDocuments();
+            });
+        });
+    </script>
+</body>
+</html>
