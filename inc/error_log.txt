@@ -47,3 +47,409 @@ Stack trace:
 #0 C:\xampp\htdocs\library\library\upload.php(29): mime_content_type(NULL)
 #1 {main}
   thrown in C:\xampp\htdocs\library\library\upload.php on line 29
+[02-Jun-2025 16:55:28 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Column count doesn't match value count at row 1 in C:\xampp\htdocs\library\library\upload.php:68
+Stack trace:
+#0 C:\xampp\htdocs\library\library\upload.php(68): mysqli->prepare('\r\n    INSERT IN...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\upload.php on line 68
+[02-Jun-2025 16:56:11 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `reading_status` (`id`)) in C:\xampp\htdocs\library\library\upload.php:90
+Stack trace:
+#0 C:\xampp\htdocs\library\library\upload.php(90): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\upload.php on line 90
+[02-Jun-2025 17:02:19 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `reading_status` (`id`)) in C:\xampp\htdocs\library\library\upload.php:90
+Stack trace:
+#0 C:\xampp\htdocs\library\library\upload.php(90): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\upload.php on line 90
+[02-Jun-2025 17:04:04 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `reading_status` (`id`)) in C:\xampp\htdocs\library\library\upload.php:90
+Stack trace:
+#0 C:\xampp\htdocs\library\library\upload.php(90): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\upload.php on line 90
+[02-Jun-2025 17:12:35 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `reading_status` (`id`)) in C:\xampp\htdocs\library\library\upload.php:90
+Stack trace:
+#0 C:\xampp\htdocs\library\library\upload.php(90): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\upload.php on line 90
+[02-Jun-2025 17:14:01 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `reading_status` (`id`)) in C:\xampp\htdocs\library\library\upload.php:91
+Stack trace:
+#0 C:\xampp\htdocs\library\library\upload.php(91): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\upload.php on line 91
+[02-Jun-2025 19:29:51 Europe/Berlin] PHP Warning:  Undefined variable $mysqli in C:\xampp\htdocs\library\library\api\search_authors.php on line 4
+[02-Jun-2025 19:29:51 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in C:\xampp\htdocs\library\library\api\search_authors.php:4
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_authors.php on line 4
+[02-Jun-2025 19:32:48 Europe/Berlin] PHP Warning:  Undefined variable $mysqli in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[02-Jun-2025 19:32:48 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function real_escape_string() on null in C:\xampp\htdocs\library\library\api\search_publishers.php:4
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[02-Jun-2025 19:33:09 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[02-Jun-2025 19:33:13 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[02-Jun-2025 19:33:14 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[02-Jun-2025 19:33:23 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[02-Jun-2025 19:33:23 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[02-Jun-2025 19:33:23 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[02-Jun-2025 19:33:23 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[02-Jun-2025 19:34:10 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:10 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:11 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:11 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:11 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:11 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:11 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:12 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:12 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:14 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:29 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:29 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:29 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:29 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:31 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:31 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:31 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:32 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:32 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:32 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:33 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:33 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:33 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:34 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:42 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:42 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:42 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:42 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:43 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:43 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:43 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:48 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:48 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:48 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:48 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:48 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:48 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[02-Jun-2025 19:34:52 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 14:52:13 Europe/Berlin] PHP Warning:  Undefined array key "title" in C:\xampp\htdocs\library\library\upload.php on line 5
+[03-Jun-2025 14:52:13 Europe/Berlin] PHP Warning:  Undefined array key "subtitle" in C:\xampp\htdocs\library\library\upload.php on line 6
+[03-Jun-2025 14:52:13 Europe/Berlin] PHP Warning:  Undefined array key "subcategory_id" in C:\xampp\htdocs\library\library\upload.php on line 7
+[03-Jun-2025 14:52:13 Europe/Berlin] PHP Warning:  Undefined array key "publisher" in C:\xampp\htdocs\library\library\upload.php on line 9
+[03-Jun-2025 14:52:13 Europe/Berlin] PHP Warning:  Undefined array key "publication_year" in C:\xampp\htdocs\library\library\upload.php on line 10
+[03-Jun-2025 14:52:13 Europe/Berlin] PHP Warning:  Undefined array key "edition" in C:\xampp\htdocs\library\library\upload.php on line 11
+[03-Jun-2025 14:52:13 Europe/Berlin] PHP Warning:  Undefined array key "isbn" in C:\xampp\htdocs\library\library\upload.php on line 12
+[03-Jun-2025 14:52:13 Europe/Berlin] PHP Warning:  Undefined array key "language_id" in C:\xampp\htdocs\library\library\upload.php on line 13
+[03-Jun-2025 14:52:13 Europe/Berlin] PHP Warning:  Undefined array key "page_count" in C:\xampp\htdocs\library\library\upload.php on line 14
+[03-Jun-2025 14:52:13 Europe/Berlin] PHP Warning:  Undefined array key "summary" in C:\xampp\htdocs\library\library\upload.php on line 21
+[03-Jun-2025 14:52:13 Europe/Berlin] PHP Warning:  Undefined array key "document_file" in C:\xampp\htdocs\library\library\upload.php on line 32
+[03-Jun-2025 14:52:13 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\library\library\upload.php on line 32
+[03-Jun-2025 14:52:13 Europe/Berlin] PHP Warning:  Undefined array key "document_file" in C:\xampp\htdocs\library\library\upload.php on line 33
+[03-Jun-2025 14:52:13 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\library\library\upload.php on line 33
+[03-Jun-2025 14:52:13 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: mime_content_type(): Argument #1 ($filename) must be of type resource|string, null given in C:\xampp\htdocs\library\library\upload.php:34
+Stack trace:
+#0 C:\xampp\htdocs\library\library\upload.php(34): mime_content_type(NULL)
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\upload.php on line 34
+[03-Jun-2025 17:05:54 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:05:54 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:05:54 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:37:54 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:38:07 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:38:11 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:38:59 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:39:01 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:40:28 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:40:28 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:40:29 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:41:39 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:42:09 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:42:11 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:42:59 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:43:00 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:43:55 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:44:04 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:44:56 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:44:57 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:44:59 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:45:24 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:45:25 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:46:09 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 17:47:32 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 22:58:20 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_keywords.php on line 4
+[03-Jun-2025 22:58:21 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 22:58:34 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\search_keywords.php:6
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\search_keywords.php(6): mysqli->prepare('SELECT id, name...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\search_keywords.php on line 6
+[03-Jun-2025 23:21:16 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[03-Jun-2025 23:23:40 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[03-Jun-2025 23:23:41 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[03-Jun-2025 23:23:41 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[03-Jun-2025 23:23:42 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[03-Jun-2025 23:26:55 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[03-Jun-2025 23:26:59 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[03-Jun-2025 23:27:00 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[03-Jun-2025 23:27:00 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[03-Jun-2025 23:27:45 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[03-Jun-2025 23:28:05 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[03-Jun-2025 23:28:30 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[03-Jun-2025 23:28:33 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[03-Jun-2025 23:44:19 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4

@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <title>Upload Document</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    .tags { margin-bottom: 10px; }
+    .tag { display: inline-block; background: #e0e0e0; padding: 5px 10px; margin: 3px; border-radius: 4px; }
+  </style>
+
 </head>
 <body>
   <h2>Upload a Document</h2>
@@ -11,17 +16,23 @@
     <label>Title:</label><br>
     <input type="text" name="title" required><br><br>
 
+    <label>Subtitle:</label><br>
+    <input type="text" name="subtitle"><br><br>
+
     <label>Category:</label><br>
-    <select id="category" required></select><br><br>
+    <select id="category" required onchange="loadSubcategories(this.value)"></select><br><br>
 
     <label>Subcategory:</label><br>
     <select name="subcategory_id" id="subcategory" required></select><br><br>
+    
+    <label>Authors:</label>
+    <input type="text" id="authors-input" placeholder="Type author name" autocomplete="off" />
+    <div id="authorsSuggestions"></div>
+    <div id="authors-tags" class="tags"></div>
 
-    <label>Authors (comma-separated):</label><br>
-    <input type="text" name="authors"><br><br>
-
-    <label>Publisher:</label><br>
-    <input type="text" name="publisher"><br><br>
+    <label>Publisher:</label> 
+    <input type="text" id="publisherInput" name="publisher" placeholder="Enter publisher" autocomplete="off" />
+    <div id="publisherSuggestions"></div>
 
     <label>Year:</label><br>
     <input type="number" name="publication_year"><br><br>
@@ -33,19 +44,21 @@
     <input type="text" name="isbn"><br><br>
 
     <label>Language:</label><br>
-    <select name="language_id" id="language"></select><br><br>
+    <select name="language_id" id="language" required></select><br><br>
 
     <label>Page Count:</label><br>
     <input type="number" name="page_count"><br><br>
 
-    <label>Format:</label><br>
-    <select name="format_id" id="format"></select><br><br>
+    <!--<label>Format:</label><br>
+    <select name="format_id" id="format"></select><br><br>-->
 
     <label>Status:</label><br>
     <select name="status_id" id="status"></select><br><br>
 
-    <label>Keywords (comma-separated):</label><br>
-    <input type="text" name="keywords"><br><br>
+    <label>Keywords:</label>
+    <input type="text" id="keywords-input" placeholder="Type keyword" autocomplete="off" />
+    <div id="keywordsSuggestions"></div>
+    <div id="keywords-tags" class="tags"></div>
 
     <label>Summary:</label><br>
     <textarea name="summary"></textarea><br><br>
@@ -57,11 +70,77 @@
   </form>
 
   <script>
+    function initTagInput(inputId, tagContainerId, searchUrl, fieldName) {
+        const input = $(`#${inputId}`);
+        const container = $(`#${tagContainerId}`);
+        const values = [];
+    
+        function addTag(text, id = null) {
+            const exists = values.some(v => v.name === text);
+            if (!text || exists) return;
+    
+            values.push({ name: text, id });
+            const tag = $(`<span class="tag">${text}</span>`);
+            container.append(tag);
+            input.val("");
+        }
+    
+        input.on("keydown", function(e) {
+            if (e.key === "," || e.key === "Enter") {
+                e.preventDefault();
+                const text = input.val().trim().replace(/,$/, "");
+                addTag(text);
+                let showSuggestion = "#" + fieldName + "Suggestions";
+                $(showSuggestion).empty();
+            }
+        });
+    
+        input.on("input", function() {
+            const query = input.val().trim();
+            //if (query.length < 2) return;
+
+            let showSuggestion = "#" + fieldName + "Suggestions";
+            $(showSuggestion).empty();
+    
+            $.getJSON(`${searchUrl}?q=${query}`, function(results) {
+                // Show simple autocomplete box or list
+                results.forEach(row => {
+                  let newsuggestion = document.createElement("span");
+                  $(newsuggestion).attr({class: "suggestion", id: `${fieldName}suggestion${row.id}`}).text(row.name);
+                  $(showSuggestion).append(newsuggestion);
+
+                  $(newsuggestion).on("click", ()=>{
+                    addTag(row.name);
+                    $(showSuggestion).empty();
+                  });
+                });
+    
+            });
+        });
+    
+        // On form submission, append hidden inputs
+        $("form").on("submit", function() {
+            values.forEach(val => {
+                $(this).append(`<input type="hidden" name="${fieldName}[]" value="${val.name}" />`);
+            });
+        });
+    }
+    
+    function loadSubcategories(categoryId) {
+      $.getJSON(`api/api_get_subcategories.php?category_id=${categoryId}`, function(data) {
+        let sub = $('#subcategory');
+        sub.empty();
+        data.forEach(row => {
+          sub.append(`<option value="${row.id}">${row.name}</option>`);
+        });
+      });
+    }
+
     $(document).ready(function() {
       function loadSelect(id, endpoint) {
         $.getJSON(endpoint, function(data) {
           let select = $(`#${id}`);
-          select.empty();
+          select.empty().append(`<option value="">Select ${id}</option>`);
           data.forEach(row => {
             select.append(`<option value="${row.id}">${row.name}</option>`);
           });
@@ -70,20 +149,34 @@
 
       loadSelect("category", "api/api_get_categories.php");
       loadSelect("language", "api/api_get_languages.php");
-      loadSelect("format", "api/api_get_formats.php");
+      //loadSelect("format", "api/api_get_formats.php");
       loadSelect("status", "api/api_get_status.php");
+      $('#subcategory').empty().append(`<option value="">Select Subcategory</option>`);
+      
+      initTagInput("authors-input", "authors-tags", "api/search_authors.php", "authors");
+      initTagInput("keywords-input", "keywords-tags", "api/search_keywords.php", "keywords");
 
-      $('#category').change(function () {
-        const catId = $(this).val();
-        $.getJSON(`api_get_subcategories.php?category_id=${catId}`, function(data) {
-          let sub = $('#subcategory');
-          sub.empty();
-          data.forEach(row => {
-            sub.append(`<option value="${row.id}">${row.name}</option>`);
-          });
+      // Publisher suggestion
+      $('#publisherInput').on('input', function () {
+          const input = $(this).val();
+          if (input.length > 1) {
+            $.getJSON(`api/search_publishers.php?q=${input}`, function(results) {
+              results.forEach(row => {
+                alert("Here");
+                let newsuggestion = document.createElement("span");
+                $(newsuggestion).attr({class: "suggestion", id: `publishersuggestion${row.id}`}).text(row.name);
+                $("#publisherSuggestions").append(newsuggestion);
+
+                $(newsuggestion).on("click", ()=>{
+                  $('#publisherInput').val(row.name);
+                  $("#publisherSuggestions").empty();
+                });
+              });
+            });
+          }
         });
-      });
     });
+
   </script>
 </body>
 </html>

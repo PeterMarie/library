@@ -3,18 +3,23 @@
 
 // Sanitize input
 $title = $conn->real_escape_string($_POST["title"]);
+$subtitle = $conn->real_escape_string($_POST["subtitle"]);
 $subcategory_id = intval($_POST["subcategory_id"]);
-$authors = explode(",", $_POST["authors"]);
+$authors = $_POST["authors"] ?? [];
 $publisher = $conn->real_escape_string($_POST["publisher"]);
 $publication_year = intval($_POST["publication_year"]);
 $edition = $conn->real_escape_string($_POST["edition"]);
 $isbn = $conn->real_escape_string($_POST["isbn"]);
 $language_id = intval($_POST["language_id"]);
 $page_count = intval($_POST["page_count"]);
-$format_id = intval($_POST["format_id"]);
-$status_id = intval($_POST["status_id"]);
+//$format_id = intval($_POST["format_id"]);
+if(!empty($_POST["status_id"]) && $_POST["status_id"]!=0){
+    $status_id = intval($_POST["status_id"]);
+}else{
+    $status_id = 1;
+}
 $summary = $conn->real_escape_string($_POST["summary"]);
-$keywords = explode(",", $_POST["keywords"]);
+$keywords = $_POST["keywords"] ?? [];
 
 // File Upload Handling
 $upload_dir = "uploads/";
@@ -31,9 +36,31 @@ $file_type = mime_content_type($tmp_file);
 if (!in_array($file_type, $allowed_types)) {
     error_log("Disallowed file type: $file_type");
     die(json_encode(["error" => "Invalid file type."]));
+}else{
+    switch ($file_type) {
+        case 'application/pdf':
+            $format_id = 1;
+            break;
+        
+        case 'application/epub+zip':
+            $format_id = 2;
+            break;
+        
+        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+            $format_id = 4;
+            break;
+        
+        case 'text/plain':
+            $format_id = 5;
+            break;
+            
+        default:
+            # code...
+            break;
+    }
 }
 
-$filename = uniqid("doc_") . "_" . preg_replace("/[^a-zA-Z0-9\.\-_]/", "_", $original_filename);
+$filename = uniqid("doc_") . "_" . preg_replace("/[^a-zA-Z0-9\.\-_]/", "_", $title);
 $target_file = $upload_dir . $filename;
 
 if (!move_uploaded_file($tmp_file, $target_file)) {
@@ -44,12 +71,13 @@ if (!move_uploaded_file($tmp_file, $target_file)) {
 // Insert into documents table
 $insertDoc = $conn->prepare("
     INSERT INTO documents 
-    (title, subcategory_id, publisher, publication_year, edition, isbn, language_id, page_count, format_id, status_id, file_path, summary)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    (title, subtitle, subcategory_id, publisher, publication_year, edition, isbn, language_id, page_count, format_id, status_id, file_path, summary)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ");
 $insertDoc->bind_param(
-    "sisissiiiiss",
+    "ssisissiiiiss",
     $title,
+    $subtitle,
     $subcategory_id,
     $publisher,
     $publication_year,
@@ -97,8 +125,8 @@ foreach ($authors as $authorName) {
 }
 
 // Handle Keywords
-$keywordStmt = $conn->prepare("SELECT id FROM keywords WHERE keyword = ?");
-$insertKeywordStmt = $conn->prepare("INSERT INTO keywords (keyword) VALUES (?)");
+$keywordStmt = $conn->prepare("SELECT id FROM keywords WHERE name = ?");
+$insertKeywordStmt = $conn->prepare("INSERT INTO keywords (name) VALUES (?)");
 $linkKeywordStmt = $conn->prepare("INSERT INTO document_keywords (document_id, keyword_id) VALUES (?, ?)");
 
 foreach ($keywords as $keyword) {
