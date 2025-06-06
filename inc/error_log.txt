@@ -453,3 +453,189 @@ Stack trace:
 [03-Jun-2025 23:28:30 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
 [03-Jun-2025 23:28:33 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
 [03-Jun-2025 23:44:19 Europe/Berlin] PHP Warning:  Undefined array key "q" in C:\xampp\htdocs\library\library\api\search_publishers.php on line 4
+[04-Jun-2025 12:41:41 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\get_filters.php:9
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\get_filters.php(9): mysqli->query('SELECT id, name...')
+#1 C:\xampp\htdocs\library\library\api\get_filters.php(41): fetchTable(Object(mysqli), 'formats')
+#2 {main}
+  thrown in C:\xampp\htdocs\library\library\api\get_filters.php on line 9
+[04-Jun-2025 12:41:41 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'f.name' in 'field list' in C:\xampp\htdocs\library\library\api\list_documents.php:59
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\list_documents.php(59): mysqli->prepare('\r\n        SELEC...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\list_documents.php on line 59
+[04-Jun-2025 12:41:57 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'f.name' in 'field list' in C:\xampp\htdocs\library\library\api\list_documents.php:59
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\list_documents.php(59): mysqli->prepare('\r\n        SELEC...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\list_documents.php on line 59
+[04-Jun-2025 12:42:03 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'f.name' in 'field list' in C:\xampp\htdocs\library\library\api\list_documents.php:59
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\list_documents.php(59): mysqli->prepare('\r\n        SELEC...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\list_documents.php on line 59
+[04-Jun-2025 12:42:03 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\get_filters.php:9
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\get_filters.php(9): mysqli->query('SELECT id, name...')
+#1 C:\xampp\htdocs\library\library\api\get_filters.php(41): fetchTable(Object(mysqli), 'formats')
+#2 {main}
+  thrown in C:\xampp\htdocs\library\library\api\get_filters.php on line 9
+[04-Jun-2025 12:42:22 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\get_filters.php:9
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\get_filters.php(9): mysqli->query('SELECT id, name...')
+#1 C:\xampp\htdocs\library\library\api\get_filters.php(41): fetchTable(Object(mysqli), 'formats')
+#2 {main}
+  thrown in C:\xampp\htdocs\library\library\api\get_filters.php on line 9
+[04-Jun-2025 14:06:12 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'field list' in C:\xampp\htdocs\library\library\api\get_filters.php:9
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\get_filters.php(9): mysqli->query('SELECT id, name...')
+#1 C:\xampp\htdocs\library\library\api\get_filters.php(42): fetchTable(Object(mysqli), 'reading_status')
+#2 {main}
+  thrown in C:\xampp\htdocs\library\library\api\get_filters.php on line 9
+[04-Jun-2025 14:14:51 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'f.name' in 'field list' in C:\xampp\htdocs\library\library\api\list_documents.php:59
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\list_documents.php(59): mysqli->prepare('\r\n        SELEC...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\list_documents.php on line 59
+[04-Jun-2025 15:27:03 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'd.id' in 'where clause' in C:\xampp\htdocs\library\library\test.php:8
+Stack trace:
+#0 C:\xampp\htdocs\library\library\test.php(8): mysqli->prepare('SELECT d.author...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 8
+[04-Jun-2025 15:27:38 Europe/Berlin] PHP Fatal error:  Uncaught Error: mysqli_stmt::bind_param(): Argument #2 cannot be passed by reference in C:\xampp\htdocs\library\library\test.php:9
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 9
+[04-Jun-2025 15:28:04 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Commands out of sync; you can't run this command now in C:\xampp\htdocs\library\library\test.php:9
+Stack trace:
+#0 C:\xampp\htdocs\library\library\test.php(9): mysqli_stmt->get_result()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 9
+[04-Jun-2025 15:28:47 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on string in C:\xampp\htdocs\library\library\test.php:13
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 13
+[04-Jun-2025 17:59:33 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 14
+[04-Jun-2025 17:59:33 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 14
+[04-Jun-2025 17:59:33 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 14
+[04-Jun-2025 17:59:33 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 14
+[04-Jun-2025 17:59:33 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 14
+[04-Jun-2025 18:01:01 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 14
+[04-Jun-2025 18:01:01 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 14
+[04-Jun-2025 18:01:01 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 14
+[04-Jun-2025 18:01:01 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 14
+[04-Jun-2025 18:01:01 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 14
+[04-Jun-2025 18:20:00 Europe/Berlin] PHP Warning:  Undefined variable $array in C:\xampp\htdocs\library\library\test.php on line 15
+[04-Jun-2025 18:20:00 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: array_filter(): Argument #1 ($array) must be of type array, null given in C:\xampp\htdocs\library\library\test.php:15
+Stack trace:
+#0 C:\xampp\htdocs\library\library\test.php(15): array_filter(NULL, Object(Closure))
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 15
+[04-Jun-2025 18:28:47 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 20
+[04-Jun-2025 18:28:47 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 20
+[04-Jun-2025 18:28:47 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 20
+[04-Jun-2025 18:28:47 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 20
+[04-Jun-2025 18:28:47 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 20
+[04-Jun-2025 18:28:59 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 20
+[04-Jun-2025 18:28:59 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 20
+[04-Jun-2025 18:28:59 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 20
+[04-Jun-2025 18:28:59 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 20
+[04-Jun-2025 18:28:59 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 20
+[04-Jun-2025 18:30:17 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 21
+[04-Jun-2025 18:30:17 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 21
+[04-Jun-2025 18:30:17 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 21
+[04-Jun-2025 18:30:17 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 21
+[04-Jun-2025 18:30:17 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 21
+[04-Jun-2025 18:30:17 Europe/Berlin] PHP Warning:  Array to string conversion in C:\xampp\htdocs\library\library\test.php on line 21
+[04-Jun-2025 20:15:50 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined method mysqli_stmt::get_results() in C:\xampp\htdocs\library\library\test.php:12
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 12
+[04-Jun-2025 20:16:00 Europe/Berlin] PHP Warning:  Undefined variable $filtered_array2 in C:\xampp\htdocs\library\library\test.php on line 18
+[04-Jun-2025 20:17:04 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of variables must match the number of parameters in the prepared statement in C:\xampp\htdocs\library\library\test.php:10
+Stack trace:
+#0 C:\xampp\htdocs\library\library\test.php(10): mysqli_stmt->bind_param('s', 'peter')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 10
+[04-Jun-2025 20:46:28 Europe/Berlin] PHP Warning:  Undefined variable $results in C:\xampp\htdocs\library\library\test.php on line 15
+[04-Jun-2025 20:46:28 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on null in C:\xampp\htdocs\library\library\test.php:15
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 15
+[04-Jun-2025 20:48:31 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on array in C:\xampp\htdocs\library\library\test.php:15
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 15
+[04-Jun-2025 20:53:31 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on array in C:\xampp\htdocs\library\library\test.php:15
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 15
+[04-Jun-2025 21:03:57 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on array in C:\xampp\htdocs\library\library\test.php:13
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 13
+[04-Jun-2025 21:07:29 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined method mysqli::error() in C:\xampp\htdocs\library\library\test.php:13
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 13
+[04-Jun-2025 21:07:32 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined method mysqli::error() in C:\xampp\htdocs\library\library\test.php:13
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 13
+[04-Jun-2025 21:07:59 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on array in C:\xampp\htdocs\library\library\test.php:15
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 15
+[04-Jun-2025 21:11:49 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined method mysqli_stmt::fetch_assoc() in C:\xampp\htdocs\library\library\test.php:15
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 15
+[04-Jun-2025 21:12:48 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on array in C:\xampp\htdocs\library\library\test.php:15
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 15
+[04-Jun-2025 21:14:17 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on array in C:\xampp\htdocs\library\library\test.php:13
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 13
+[04-Jun-2025 21:14:47 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on array in C:\xampp\htdocs\library\library\test.php:13
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 13
+[04-Jun-2025 21:15:16 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on array in C:\xampp\htdocs\library\library\test.php:13
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 13
+[04-Jun-2025 21:28:28 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on array in C:\xampp\htdocs\library\library\test.php:13
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 13
+[05-Jun-2025 09:29:43 Europe/Berlin] PHP Warning:  Undefined variable $results in C:\xampp\htdocs\library\library\test.php on line 15
+[05-Jun-2025 09:29:43 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on null in C:\xampp\htdocs\library\library\test.php:15
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 15
+[05-Jun-2025 11:55:19 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' d.title, d.publisher, d.publication_year, d.page_count, 
+            d.file...' at line 1 in C:\xampp\htdocs\library\library\test.php:58
+Stack trace:
+#0 C:\xampp\htdocs\library\library\test.php(58): mysqli->prepare('\r\n        SELEC...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 58
+[05-Jun-2025 11:56:05 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' d.title, d.publisher, d.publication_year, d.page_count, 
+               d.f...' at line 1 in C:\xampp\htdocs\library\library\test.php:143
+Stack trace:
+#0 C:\xampp\htdocs\library\library\test.php(143): mysqli->prepare('\r\n           SE...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 143
+[05-Jun-2025 17:15:12 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '.name AS language, f.type AS format, r.status AS reading_status,
+        s.n...' at line 3 in C:\xampp\htdocs\library\library\api\list_documents.php:114
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\list_documents.php(114): mysqli->prepare('\r\n    SELECT DI...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\list_documents.php on line 114
+[05-Jun-2025 17:15:38 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '.name AS language, f.type AS format, r.status AS reading_status,
+        s.n...' at line 3 in C:\xampp\htdocs\library\library\api\list_documents.php:114
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\list_documents.php(114): mysqli->prepare('\r\n    SELECT DI...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\list_documents.php on line 114

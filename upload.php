@@ -1,5 +1,5 @@
 <?php
-    require_once("inc/db.php");
+require_once("inc/db.php");
 
 // Sanitize input
 $title = $conn->real_escape_string($_POST["title"]);
@@ -12,22 +12,24 @@ $edition = $conn->real_escape_string($_POST["edition"]);
 $isbn = $conn->real_escape_string($_POST["isbn"]);
 $language_id = intval($_POST["language_id"]);
 $page_count = intval($_POST["page_count"]);
-//$format_id = intval($_POST["format_id"]);
-if(!empty($_POST["status_id"]) && $_POST["status_id"]!=0){
-    $status_id = intval($_POST["status_id"]);
-}else{
-    $status_id = 1;
-}
+
+$status_id = (!empty($_POST["status_id"]) && $_POST["status_id"] != 0) ? intval($_POST["status_id"]) : 1;
+
 $summary = $conn->real_escape_string($_POST["summary"]);
 $keywords = $_POST["keywords"] ?? [];
 
-// File Upload Handling
+// Upload Document File
 $upload_dir = "uploads/";
 if (!file_exists($upload_dir)) {
     mkdir($upload_dir, 0777, true);
 }
 
-$allowed_types = ['application/pdf', 'application/epub+zip', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
+$allowed_types = [
+    'application/pdf',
+    'application/epub+zip',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'text/plain'
+];
 
 $tmp_file = $_FILES["document_file"]["tmp_name"];
 $original_filename = basename($_FILES["document_file"]["name"]);
@@ -36,31 +38,16 @@ $file_type = mime_content_type($tmp_file);
 if (!in_array($file_type, $allowed_types)) {
     error_log("Disallowed file type: $file_type");
     die(json_encode(["error" => "Invalid file type."]));
-}else{
+} else {
     switch ($file_type) {
-        case 'application/pdf':
-            $format_id = 1;
-            break;
-        
-        case 'application/epub+zip':
-            $format_id = 2;
-            break;
-        
-        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-            $format_id = 4;
-            break;
-        
-        case 'text/plain':
-            $format_id = 5;
-            break;
-            
-        default:
-            # code...
-            break;
+        case 'application/pdf': $format_id = 1; break;
+        case 'application/epub+zip': $format_id = 2; break;
+        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': $format_id = 4; break;
+        case 'text/plain': $format_id = 5; break;
     }
 }
-
-$filename = uniqid("doc_") . "_" . preg_replace("/[^a-zA-Z0-9\.\-_]/", "_", $title);
+$fileId = uniqid("doc_");
+$filename = $fileId . "_" . preg_replace("/[^a-zA-Z0-9\.\-_]/", "_", $title);
 $target_file = $upload_dir . $filename;
 
 if (!move_uploaded_file($tmp_file, $target_file)) {
@@ -68,14 +55,42 @@ if (!move_uploaded_file($tmp_file, $target_file)) {
     die(json_encode(["error" => "Failed to upload file."]));
 }
 
+// Upload Cover Image
+$cover_dir = "covers/";
+if (!file_exists($cover_dir)) {
+    mkdir($cover_dir, 0777, true);
+}
+
+$cover_image_path = 'covers/default.png';
+
+if (isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] === UPLOAD_ERR_OK) {
+    $cover_tmp = $_FILES['cover_image']['tmp_name'];
+    $cover_type = mime_content_type($cover_tmp);
+    $valid_image_types = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
+    if (in_array($cover_type, $valid_image_types)) {
+        $cover_name = uniqid("cover_") . "_" . preg_replace("/[^a-zA-Z0-9\.\-_]/", "_", $_FILES['cover_image']['name']);
+        $cover_target = $cover_dir . $cover_name;
+
+        if (move_uploaded_file($cover_tmp, $cover_target)) {
+            $cover_image_path = $cover_target;
+        } else {
+            error_log("Failed to move cover image. Using default.");
+        }
+    } else {
+        error_log("Invalid cover image type: $cover_type. Using default.");
+    }
+}
+
 // Insert into documents table
 $insertDoc = $conn->prepare("
     INSERT INTO documents 
-    (title, subtitle, subcategory_id, publisher, publication_year, edition, isbn, language_id, page_count, format_id, status_id, file_path, summary)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    (title, subtitle, subcategory_id, publisher, publication_year, edition, isbn, language_id, page_count, format_id, status_id, fileId, file_path, summary, cover_image)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ");
+
 $insertDoc->bind_param(
-    "ssisissiiiiss",
+    "ssisissiiiissss",
     $title,
     $subtitle,
     $subcategory_id,
@@ -87,8 +102,10 @@ $insertDoc->bind_param(
     $page_count,
     $format_id,
     $status_id,
+    $fileId
     $target_file,
-    $summary
+    $summary,
+    $cover_image_path
 );
 
 if (!$insertDoc->execute()) {

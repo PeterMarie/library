@@ -1,134 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Upload Document</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
-    .tags { margin-bottom: 10px; }
-    .tag { display: inline-block; background: #e0e0e0; padding: 5px 10px; margin: 3px; border-radius: 4px; }
-  </style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f8f6ff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
 
+    h2 {
+      text-align: center;
+      color: #6a1b9a;
+    }
+
+    form {
+      background: white;
+      padding: 30px;
+      margin-top: 30px;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 700px;
+      box-shadow: 0 8px 24px rgba(106, 27, 154, 0.15);
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin: 15px 0 5px;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="file"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    input[type="file"] {
+      padding: 6px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 10px 0;
+    }
+
+    .tag {
+      background: #e1bee7;
+      color: #4a148c;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    .suggestion {
+      display: block;
+      background: #f3e5f5;
+      padding: 5px 10px;
+      margin: 2px 0;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button {
+      background: #6a1b9a;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 20px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #4a0072;
+    }
+
+    .drop-zone {
+      border: 2px dashed #ba68c8;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      color: #6a1b9a;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .drop-zone.dragover {
+      background-color: #f3e5f5;
+    }
+
+    #coverPreview {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <h2>Upload a Document</h2>
   <form action="upload.php" method="POST" enctype="multipart/form-data">
-    <label>Title:</label><br>
-    <input type="text" name="title" required><br><br>
+    <h2>Upload a Document</h2>
 
-    <label>Subtitle:</label><br>
-    <input type="text" name="subtitle"><br><br>
+    <label>Title:</label>
+    <input type="text" name="title" required>
 
-    <label>Category:</label><br>
-    <select id="category" required onchange="loadSubcategories(this.value)"></select><br><br>
+    <label>Subtitle:</label>
+    <input type="text" name="subtitle">
 
-    <label>Subcategory:</label><br>
-    <select name="subcategory_id" id="subcategory" required></select><br><br>
-    
+    <label>Category:</label>
+    <select id="category" required onchange="loadSubcategories(this.value)"></select>
+
+    <label>Subcategory:</label>
+    <select name="subcategory_id" id="subcategory" required></select>
+
     <label>Authors:</label>
     <input type="text" id="authors-input" placeholder="Type author name" autocomplete="off" />
     <div id="authorsSuggestions"></div>
     <div id="authors-tags" class="tags"></div>
 
-    <label>Publisher:</label> 
+    <label>Publisher:</label>
     <input type="text" id="publisherInput" name="publisher" placeholder="Enter publisher" autocomplete="off" />
     <div id="publisherSuggestions"></div>
 
-    <label>Year:</label><br>
-    <input type="number" name="publication_year"><br><br>
+    <label>Year:</label>
+    <input type="number" name="publication_year">
 
-    <label>Edition:</label><br>
-    <input type="text" name="edition"><br><br>
+    <label>Edition:</label>
+    <input type="number" name="edition">
 
-    <label>ISBN:</label><br>
-    <input type="text" name="isbn"><br><br>
+    <label>ISBN:</label>
+    <input type="text" name="isbn">
 
-    <label>Language:</label><br>
-    <select name="language_id" id="language" required></select><br><br>
+    <label>Language:</label>
+    <select name="language_id" id="language" required></select>
 
-    <label>Page Count:</label><br>
-    <input type="number" name="page_count"><br><br>
+    <label>Page Count:</label>
+    <input type="number" name="page_count">
 
-    <!--<label>Format:</label><br>
-    <select name="format_id" id="format"></select><br><br>-->
-
-    <label>Status:</label><br>
-    <select name="status_id" id="status"></select><br><br>
+    <label>Status:</label>
+    <select name="status_id" id="status"></select>
 
     <label>Keywords:</label>
     <input type="text" id="keywords-input" placeholder="Type keyword" autocomplete="off" />
     <div id="keywordsSuggestions"></div>
     <div id="keywords-tags" class="tags"></div>
 
-    <label>Summary:</label><br>
-    <textarea name="summary"></textarea><br><br>
+    <label>Summary:</label>
+    <textarea name="summary" rows="4"></textarea>
 
-    <label>Upload File (PDF, EPUB, etc.):</label><br>
-    <input type="file" name="document_file" required><br><br>
+    <label>Upload File (PDF, EPUB, etc.):</label>
+    <input type="file" name="document_file" accept=".pdf,.epub,.docx" required>
+
+    <label>Optional Cover Image:</label>
+    <div class="drop-zone" id="drop-zone">
+      Drag & drop cover image here or click to select
+    </div>
+    <input type="file" id="coverInput" name="cover_image" accept="image/*" style="display:none;" />
+    <img id="coverPreview" alt="Cover Preview" />
 
     <button type="submit">Upload Document</button>
   </form>
 
   <script>
     function initTagInput(inputId, tagContainerId, searchUrl, fieldName) {
-        const input = $(`#${inputId}`);
-        const container = $(`#${tagContainerId}`);
-        const values = [];
-    
-        function addTag(text, id = null) {
-            const exists = values.some(v => v.name === text);
-            if (!text || exists) return;
-    
-            values.push({ name: text, id });
-            const tag = $(`<span class="tag">${text}</span>`);
-            container.append(tag);
-            input.val("");
+      const input = $(`#${inputId}`);
+      const container = $(`#${tagContainerId}`);
+      const values = [];
+
+      function addTag(text, id = null) {
+        const exists = values.some(v => v.name === text);
+        if (!text || exists) return;
+
+        values.push({ name: text, id });
+        const tag = $(`<span class="tag">${text}</span>`);
+        container.append(tag);
+        input.val("");
+      }
+
+      input.on("keydown", function (e) {
+        if (e.key === "," || e.key === "Enter") {
+          e.preventDefault();
+          const text = input.val().trim().replace(/,$/, "");
+          addTag(text);
+          $(`#${fieldName}Suggestions`).empty();
         }
-    
-        input.on("keydown", function(e) {
-            if (e.key === "," || e.key === "Enter") {
-                e.preventDefault();
-                const text = input.val().trim().replace(/,$/, "");
-                addTag(text);
-                let showSuggestion = "#" + fieldName + "Suggestions";
-                $(showSuggestion).empty();
-            }
-        });
-    
-        input.on("input", function() {
-            const query = input.val().trim();
-            //if (query.length < 2) return;
+      });
 
-            let showSuggestion = "#" + fieldName + "Suggestions";
-            $(showSuggestion).empty();
-    
-            $.getJSON(`${searchUrl}?q=${query}`, function(results) {
-                // Show simple autocomplete box or list
-                results.forEach(row => {
-                  let newsuggestion = document.createElement("span");
-                  $(newsuggestion).attr({class: "suggestion", id: `${fieldName}suggestion${row.id}`}).text(row.name);
-                  $(showSuggestion).append(newsuggestion);
+      input.on("input", function () {
+        const query = input.val().trim();
+        $(`#${fieldName}Suggestions`).empty();
 
-                  $(newsuggestion).on("click", ()=>{
-                    addTag(row.name);
-                    $(showSuggestion).empty();
-                  });
-                });
-    
+        if (query.length > 0) {
+          $.getJSON(`${searchUrl}?q=${query}`, function (results) {
+            results.forEach(row => {
+              const suggestion = $(`<span class="suggestion">${row.name}</span>`);
+              $(`#${fieldName}Suggestions`).append(suggestion);
+              suggestion.on("click", () => {
+                addTag(row.name);
+                $(`#${fieldName}Suggestions`).empty();
+              });
             });
+          });
+        }
+      });
+
+      $("form").on("submit", function () {
+        values.forEach(val => {
+          $(this).append(`<input type="hidden" name="${fieldName}[]" value="${val.name}" />`);
         });
-    
-        // On form submission, append hidden inputs
-        $("form").on("submit", function() {
-            values.forEach(val => {
-                $(this).append(`<input type="hidden" name="${fieldName}[]" value="${val.name}" />`);
-            });
-        });
+      });
     }
-    
+
     function loadSubcategories(categoryId) {
-      $.getJSON(`api/api_get_subcategories.php?category_id=${categoryId}`, function(data) {
-        let sub = $('#subcategory');
+      $.getJSON(`api/api_get_subcategories.php?category_id=${categoryId}`, function (data) {
+        const sub = $('#subcategory');
         sub.empty();
         data.forEach(row => {
           sub.append(`<option value="${row.id}">${row.name}</option>`);
@@ -136,10 +246,10 @@
       });
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
       function loadSelect(id, endpoint) {
-        $.getJSON(endpoint, function(data) {
-          let select = $(`#${id}`);
+        $.getJSON(endpoint, function (data) {
+          const select = $(`#${id}`);
           select.empty().append(`<option value="">Select ${id}</option>`);
           data.forEach(row => {
             select.append(`<option value="${row.id}">${row.name}</option>`);
@@ -149,34 +259,70 @@
 
       loadSelect("category", "api/api_get_categories.php");
       loadSelect("language", "api/api_get_languages.php");
-      //loadSelect("format", "api/api_get_formats.php");
       loadSelect("status", "api/api_get_status.php");
+
       $('#subcategory').empty().append(`<option value="">Select Subcategory</option>`);
-      
+
       initTagInput("authors-input", "authors-tags", "api/search_authors.php", "authors");
       initTagInput("keywords-input", "keywords-tags", "api/search_keywords.php", "keywords");
 
-      // Publisher suggestion
       $('#publisherInput').on('input', function () {
-          const input = $(this).val();
-          if (input.length > 1) {
-            $.getJSON(`api/search_publishers.php?q=${input}`, function(results) {
-              results.forEach(row => {
-                alert("Here");
-                let newsuggestion = document.createElement("span");
-                $(newsuggestion).attr({class: "suggestion", id: `publishersuggestion${row.id}`}).text(row.name);
-                $("#publisherSuggestions").append(newsuggestion);
-
-                $(newsuggestion).on("click", ()=>{
-                  $('#publisherInput').val(row.name);
-                  $("#publisherSuggestions").empty();
-                });
+        const input = $(this).val();
+        if (input.length > 1) {
+          $.getJSON(`api/search_publishers.php?q=${input}`, function (results) {
+            $("#publisherSuggestions").empty();
+            results.forEach(row => {
+              const suggestion = $(`<span class="suggestion">${row.name}</span>`);
+              $("#publisherSuggestions").append(suggestion);
+              suggestion.on("click", () => {
+                $('#publisherInput').val(row.name);
+                $("#publisherSuggestions").empty();
               });
             });
-          }
-        });
-    });
+          });
+        }
+      });
 
+      // Cover image preview and drag-drop
+      const dropZone = $('#drop-zone');
+      const coverInput = $('#coverInput');
+      const preview = $('#coverPreview');
+
+      function previewImage(file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.attr('src', e.target.result).show();
+        };
+        reader.readAsDataURL(file);
+      }
+
+      dropZone.on('click', () => coverInput.click());
+
+      coverInput.on('change', function () {
+        if (this.files && this.files[0]) {
+          previewImage(this.files[0]);
+        }
+      });
+
+      dropZone.on('dragover', function (e) {
+        e.preventDefault();
+        dropZone.addClass('dragover');
+      });
+
+      dropZone.on('dragleave', function () {
+        dropZone.removeClass('dragover');
+      });
+
+      dropZone.on('drop', function (e) {
+        e.preventDefault();
+        dropZone.removeClass('dragover');
+        const file = e.originalEvent.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+          coverInput[0].files = e.originalEvent.dataTransfer.files;
+          previewImage(file);
+        }
+      });
+    });
   </script>
 </body>
 </html>
