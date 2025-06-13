@@ -220,9 +220,9 @@
         <select id="format-filter" onchange="fetchDocuments()">
             <option value="">All Formats</option>
         </select>
-        <select id="status-filter" onchange="fetchDocuments()">
+        <!--<select id="status-filter" onchange="fetchDocuments()">
             <option value="">All Statuses</option>
-        </select>
+        </select>-->
         <input type="number" id="year-filter" placeholder="Min Year" onchange="fetchDocuments()" style="width:100px;">
     </div>
 
@@ -268,8 +268,8 @@
                                 <span onclick="applyFilterValue('subcategory','${doc.subcategory_id}')">${doc.subcategory}</span><br>
                                 <strong>Year:</strong> <span onclick="applyFilterValue('year','${doc.publication_year}')">${doc.publication_year}</span> | 
                                 <strong>Format:</strong> <span onclick="applyFilterValue('format','${doc.format_id}')">${doc.format}</span> | 
-                                <strong>Language:</strong> <span onclick="applyFilterValue('language','${doc.language_id}')">${doc.language}</span> | 
-                                <strong>Status:</strong> <span onclick="applyFilterValue('status','${doc.status_id}')">${doc.reading_status}</span>
+                                <strong>Language:</strong> <span onclick="applyFilterValue('language','${doc.language_id}')">${doc.language}</span> <!--| 
+                                <strong>Status:</strong> <span onclick="applyFilterValue('status','${doc.status_id}')">${doc.reading_status}</span>-->
                             </div>
                             <a href="${doc.file_path}" target="_blank" class="download-link"><i class="fa fa-download"></i> Download</a>
                         </div>
@@ -348,6 +348,17 @@
         }
 
         $(document).ready(function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('search') || ''; 
+            if(searchQuery){
+                $('#search').val(searchQuery);
+
+                const url = new URL(window.location.href);
+                url.searchParams.delete('search');
+
+                window.history.replaceState({}, document.title, url.pathname);
+            }
+
             fetchFilters();
             fetchDocuments();
         });

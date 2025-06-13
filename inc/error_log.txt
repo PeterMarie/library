@@ -639,3 +639,76 @@ Stack trace:
 #0 C:\xampp\htdocs\library\library\api\list_documents.php(114): mysqli->prepare('\r\n    SELECT DI...')
 #1 {main}
   thrown in C:\xampp\htdocs\library\library\api\list_documents.php on line 114
+[07-Jun-2025 10:50:39 Europe/Berlin] PHP Warning:  Undefined array key "search" in C:\xampp\htdocs\library\library\test.php on line 7
+[13-Jun-2025 14:53:19 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\library\library\api\update_document.php:61
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\update_document.php(61): mysqli_stmt->bind_param('ssiissiiisssi', 'visionaries aga...', '', 2018, 0, 1, 1, 0, 18, '', '', 0)
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\update_document.php on line 61
+[13-Jun-2025 14:53:43 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\library\library\api\update_document.php:61
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\update_document.php(61): mysqli_stmt->bind_param('ssiissiiisssi', 'visionaries aga...', '', 2018, 0, 1, 1, 0, 18, '', '', 0)
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\update_document.php on line 61
+[13-Jun-2025 15:40:40 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `reading_status` (`id`)) in C:\xampp\htdocs\library\library\api\update_document.php:70
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\update_document.php(70): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\update_document.php on line 70
+[13-Jun-2025 15:42:58 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `reading_status` (`id`)) in C:\xampp\htdocs\library\library\api\update_document.php:70
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\update_document.php(70): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\update_document.php on line 70
+[13-Jun-2025 15:45:04 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `reading_status` (`id`)) in C:\xampp\htdocs\library\library\api\update_document.php:70
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\update_document.php(70): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\update_document.php on line 70
+[13-Jun-2025 15:48:35 Europe/Berlin] PHP Warning:  Undefined array key "id" in C:\xampp\htdocs\library\library\api\update_document.php on line 18
+[13-Jun-2025 17:16:00 Europe/Berlin] PHP Warning:  Undefined array key "id" in C:\xampp\htdocs\library\library\test.php on line 18
+[13-Jun-2025 17:32:57 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `reading_status` (`id`)) in C:\xampp\htdocs\library\library\api\update_document.php:70
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\update_document.php(70): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\update_document.php on line 70
+[13-Jun-2025 17:35:17 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `reading_status` (`id`)) in C:\xampp\htdocs\library\library\api\update_document.php:70
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\update_document.php(70): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\update_document.php on line 70
+[13-Jun-2025 17:35:40 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `reading_status` (`id`)) in C:\xampp\htdocs\library\library\api\update_document.php:70
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\update_document.php(70): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\update_document.php on line 70
+[13-Jun-2025 17:39:24 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `reading_status` (`id`)) in C:\xampp\htdocs\library\library\api\update_document.php:70
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\update_document.php(70): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\update_document.php on line 70
+[13-Jun-2025 17:39:51 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `reading_status` (`id`)) in C:\xampp\htdocs\library\library\api\update_document.php:70
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\update_document.php(70): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\update_document.php on line 70
+[13-Jun-2025 17:40:30 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_1` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategories` (`id`)) in C:\xampp\htdocs\library\library\test.php:70
+Stack trace:
+#0 C:\xampp\htdocs\library\library\test.php(70): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 70
+[13-Jun-2025 17:46:43 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`)) in C:\xampp\htdocs\library\library\test.php:70
+Stack trace:
+#0 C:\xampp\htdocs\library\library\test.php(70): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 70
+[13-Jun-2025 17:47:26 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`library_db`.`documents`, CONSTRAINT `documents_ibfk_4` FOREIGN KEY (`status_id`) REFERENCES `reading_status` (`id`)) in C:\xampp\htdocs\library\library\test.php:70
+Stack trace:
+#0 C:\xampp\htdocs\library\library\test.php(70): mysqli_stmt->execute()
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 70
+[13-Jun-2025 17:51:27 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\library\library\test.php:63
+Stack trace:
+#0 C:\xampp\htdocs\library\library\test.php(63): mysqli_stmt->bind_param('ssiiiiisssi', '', '', 0, 0, 1, 1, 18, '', '', '', '', 6)
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\test.php on line 63
