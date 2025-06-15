@@ -28,7 +28,7 @@ function addCoverImages(&$doc) {
 }
 
 $page = isset($_POST['page']) ? max(1, intval($_POST['page'])) : 1;
-$page_size = isset($_POST['page_size']) ? max(1, intval($_POST['page_size'])) : 5;
+$page_size = isset($_POST['page_size']) ? max(1, intval($_POST['page_size'])) : 15;
 $offset = ($page - 1) * $page_size;
 
 $filterQuery = "
