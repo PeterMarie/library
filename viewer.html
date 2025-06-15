@@ -2,30 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>QuillWizards' Library</title>
+    <title>QuillWizards Library</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"><style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
-            background-color: #f4f3f8;
-            color: #333;
-            transition: background-color 0.3s ease;
-        }
-    
-        h1 {
-            color: #6f42c1;
-            font-size: 28px;
-            margin-bottom: 25px;
-            animation: fadeInDown 0.6s ease forwards;
-        }
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css" >
+    <style>
         .search-container {
-            margin-bottom: 25px;
-            display: flex;
-            flex-wrap: wrap;
+            margin-bottom: 0;
             gap: 10px;
-            animation: fadeIn 0.5s ease forwards;
+            align-self: flex-start;
         }
     
         .search-container input,
@@ -44,117 +29,6 @@
             box-shadow: 0 0 0 2px rgba(111, 66, 193, 0.2);
         }
     
-        .document-list {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            animation: fadeInUp 0.6s ease forwards;
-        }
-    
-        .document-item {
-            display: flex;
-            background-color: #fff;
-            border: 1px solid #e0dff2;
-            border-left: 5px solid #6f42c1;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(111, 66, 193, 0.05);
-            padding: 15px;
-            gap: 15px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            opacity: 0;
-            animation: slideIn 0.4s ease forwards;
-        }
-    
-        .document-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(111, 66, 193, 0.1);
-        }
-    
-        .cover-image {
-            width: 100px;
-            height: 140px;
-            object-fit: cover;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-    
-        .cover-image:hover {
-            transform: scale(1.05);
-        }
-    
-        .document-info {
-            flex: 1;
-        }
-    
-        .document-title a {
-            font-size: 18px;
-            font-weight: bold;
-            color: #6f42c1;
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-    
-        .document-title a:hover {
-            text-decoration: underline;
-            color: #523098;
-        }
-    
-        .document-meta {
-            font-size: 14px;
-            color: #555;
-            margin-top: 5px;
-            line-height: 1.6;
-        }
-    
-        .document-meta span {
-            cursor: pointer;
-            color: #6f42c1;
-            text-decoration: underline;
-        }
-    
-        .download-link {
-            margin-top: 12px;
-            display: inline-block;
-            font-size: 14px;
-            color: #5cb85c;
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-    
-        .download-link:hover {
-            color: #449d44;
-            text-decoration: underline;
-        }
-    
-        .pagination {
-            margin-top: 30px;
-            text-align: center;
-        }
-    
-        .pagination button {
-            padding: 8px 14px;
-            margin: 0 4px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 14px;
-            transition: background-color 0.2s ease, transform 0.2s ease;
-        }
-    
-        .pagination button:hover {
-            background-color: #e6dff5;
-            transform: scale(1.05);
-        }
-    
-        .pagination button.active {
-            background-color: #6f42c1;
-            color: #fff;
-            border-color: #6f42c1;
-        }
-    
         /* Responsive layout */
         @media (min-width: 768px) {
             .document-list {
@@ -162,76 +36,54 @@
             }
         }
     
-        @media (max-width: 767px) {
-            .document-item {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
     
-            .cover-image {
-                width: 80px;
-                height: 110px;
-            }
-    
-            .document-info {
-                width: 100%;
-            }
-        }
-    
-        /* Animations */
-        @keyframes fadeInDown {
-            0% { opacity: 0; transform: translateY(-20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-    
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-    
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-    
-        @keyframes slideIn {
-            0% { opacity: 0; transform: translateX(-10px); }
-            100% { opacity: 1; transform: translateX(0); }
-        }
     </style>
-    
     
 </head>
 <body>
-    <h1>📚 QuillWizards' Library</h1>
+    <header>
+        <div class="top-header">
+            <div class="title-div">
+                <img src="../images/qw_silver.png" alt="QuillWizards Logo">
+                <h1>QuillWizards Library</h1>
+            </div>
+            <nav class="nav-links">
+                <a href="index.php" id="library-link">📚 Library Home</a>
+                <a href="../" id="home-link">🏠 QuillWizards Home</a>
+            </nav>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Search by title, author, or keyword" onkeyup="fetchDocuments()">
+            <select id="category-filter" onchange="category_change(this.value)">
+                <option value="">All Categories</option>
+            </select>
+            <select id="subcategory-filter" onchange="fetchDocuments()">
+                <option value="">All Sub-Categories</option>
+            </select>
+            <select id="language-filter" onchange="fetchDocuments()">
+                <option value="">All Languages</option>
+            </select>
+            <select id="format-filter" onchange="fetchDocuments()">
+                <option value="">All Formats</option>
+            </select>
+            <!--<select id="status-filter" onchange="fetchDocuments()">
+                <option value="">All Statuses</option>
+            </select>-->
+            <input type="number" id="year-filter" placeholder="Min Year" onchange="fetchDocuments()" style="width:100px;">
+        </div>
+    </header>
+    <main>
+        <div class="document-list" id="document-list">
+            <!-- Documents will be loaded here -->
+        </div>
+        <div class="pagination" id="pagination">
+            <!-- Pagination buttons will appear here -->
+        </div>
+    </main>
+    <footer>
+        &copy; 2025 QuillWizards. All rights reserved.
+    </footer>
 
-    <div class="search-container">
-        <input type="text" id="search" placeholder="Search by title, author, or keyword" onkeyup="fetchDocuments()">
-        <select id="category-filter" onchange="category_change(this.value)">
-            <option value="">All Categories</option>
-        </select>
-        <select id="subcategory-filter" onchange="fetchDocuments()">
-            <option value="">All Sub-Categories</option>
-        </select>
-        <select id="language-filter" onchange="fetchDocuments()">
-            <option value="">All Languages</option>
-        </select>
-        <select id="format-filter" onchange="fetchDocuments()">
-            <option value="">All Formats</option>
-        </select>
-        <!--<select id="status-filter" onchange="fetchDocuments()">
-            <option value="">All Statuses</option>
-        </select>-->
-        <input type="number" id="year-filter" placeholder="Min Year" onchange="fetchDocuments()" style="width:100px;">
-    </div>
-
-    <div class="document-list" id="document-list">
-        <!-- Documents will be loaded here -->
-    </div>
-    <div class="pagination" id="pagination">
-        <!-- Pagination buttons will appear here -->
-    </div>
 
     <script>
         let currentPage = 1;

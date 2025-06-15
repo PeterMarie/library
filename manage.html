@@ -5,31 +5,62 @@
     <title>Manage QuillWizards Library</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css" >
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f4f3f8; color: #333; }
-        h1 { color: #6f42c1; font-size: 28px; margin-bottom: 25px; }
-        .search-container { margin-bottom: 25px; display: flex; flex-wrap: wrap; gap: 10px; }
-        .search-container input, .search-container select { padding: 8px 10px; border: 1px solid #bbb; border-radius: 6px; font-size: 14px; }
-        .book-form { background-color: #fff; border-left: 5px solid #6f42c1; border-radius: 8px; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(111, 66, 193, 0.05); }
-        .book-form input, .book-form select, .book-form textarea { width: 100%; margin-top: 6px; margin-bottom: 12px; padding: 8px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; }
-        .book-form label { font-weight: bold; display: block; margin-top: 10px; }
-        .book-form button { padding: 8px 14px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin-right: 8px; }
-        .update-btn { background-color: #5cb85c; color: #fff; }
-        .delete-btn { background-color: #d9534f; color: #fff; }
-        .book-cover { width: 100px; height: 140px; object-fit: cover; border: 1px solid #ccc; margin-bottom: 10px; }
-        .pagination { text-align: center; margin-top: 20px; }
-        .pagination button { margin: 0 5px; padding: 6px 12px; border: 1px solid #6f42c1; background-color: #fff; color: #6f42c1; border-radius: 5px; cursor: pointer; }
+        .book-cover { 
+            width: 100px; height: 140px; object-fit: cover; border: 1px solid #ccc; margin-bottom: 10px; 
+        }
+        .search-container {
+            margin-bottom: 0;
+            gap: 10px;
+            align-self: flex-start;
+        }
+    
+        .search-container input,
+        .search-container select {
+            padding: 8px 10px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: box-shadow 0.3s ease;
+        }
+    
+        .search-container input:focus,
+        .search-container select:focus {
+            outline: none;
+            border-color: #6f42c1;
+            box-shadow: 0 0 0 2px rgba(111, 66, 193, 0.2);
+        }
+
     </style>
 </head>
 <body>
-    <h1>🛠️ Manage QuillWizards Library</h1>
+    <header>
+        <div class="top-header">
+            <div class="title-div">
+                <img src="../images/qw_silver.png" alt="QuillWizards Logo">
+                <h1>QuillWizards Library <span class="header-admin-tag">Admin Pages</span></h1>
+            </div>
+            <nav class="nav-links">
+                <a href="upload.html" id="upload-link">📤 Add New Book</a>
+                <a href="index.php" id="library-link">📚 Public Library</a>
+                <a href="../" id="home-link">🏠 QuillWizards Home</a>
+            </nav>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Search by title, author, or keyword" onkeyup="fetchBooks()">
+        </div>
+    </header>
+    <main>
+        <h2>Manage Books</h2>
+    
+        <div id="book-list" class="document-list"></div>
+        <div class="pagination" id="pagination"></div>
+    </main>
+    <footer>
+        &copy; 2025 QuillWizards. All rights reserved.
+    </footer>
 
-    <div class="search-container">
-        <input type="text" id="search" placeholder="Search by title, author, or keyword" onkeyup="fetchBooks()">
-    </div>
-
-    <div id="book-list"></div>
-    <div class="pagination" id="pagination"></div>
 
     <script>
         let metaData = { categories: [], formats: {}, languages: {}, reading_status: {} };
@@ -87,6 +118,7 @@
                 const form = `
                     <div class="book-form" data-id="${book.id}">
                         <img src="${book.cover_image}" class="book-cover" alt="Cover">
+                        <input type="hidden" class="cover_image" value="${book.cover_image}">
                         <input type="file" class="cover-upload">
 
                         <label>Title</label>
@@ -119,6 +151,7 @@
                         <label>Summary</label>
                         <textarea class="summary">${book.summary || ''}</textarea>
 
+                        <a href="${book.file_path}" target="_blank" class="download-link"><i class="fa fa-download"></i> Download</a>
                         <button class="update-btn" onclick="updateBook('${book.id}')">Update</button>
                         <button class="delete-btn" onclick="deleteBook('${book.id}')">Delete</button>
                     </div>`;
@@ -127,7 +160,12 @@
             });
 
             for (let i = 1; i <= totalPages; i++) {
-                pagination.append(`<button onclick="goToPage(${i})">${i}</button>`);
+                const button = $(`<button>${i}</button>`);
+                $(button).on("click", function(){
+                    goToPage(i);
+                });
+                if (i === currentPage) button.addClass('active');
+                pagination.append(button);
             }
 
             $('.category_id').on('change', function () {
@@ -135,6 +173,17 @@
                 const categoryId = $(this).val();
                 const subSelect = buildSubcategorySelect(null, categoryId);
                 form.find('.subcategory_id').replaceWith(subSelect);
+            });
+
+            $('.cover-upload').on('change', function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $(this).closest('.book-form').find('.book-cover').attr('src', e.target.result);
+                    }.bind(this);
+                    reader.readAsDataURL(file);
+                }
             });
         }
 
@@ -163,6 +212,8 @@
             formData.append('summary', form.find('.summary').val());
             if (fileInput.files.length > 0) {
                 formData.append('cover_image', fileInput.files[0]);
+            } else {
+                formData.append('cover_image', form.find('.cover_image').val());
             }
 
             $.ajax({

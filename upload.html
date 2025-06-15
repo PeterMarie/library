@@ -2,39 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Upload Document</title>
+  <title>Add New Book</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="css/style.css" >
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f8f6ff;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-    }
-
-    h2 {
-      text-align: center;
-      color: #6a1b9a;
-    }
-
-    form {
-      background: white;
-      padding: 30px;
-      margin-top: 30px;
-      border-radius: 16px;
-      width: 100%;
-      max-width: 700px;
-      box-shadow: 0 8px 24px rgba(106, 27, 154, 0.15);
-    }
-
-    label {
-      font-weight: 600;
-      display: block;
-      margin: 15px 0 5px;
-      color: #333;
-    }
 
     input[type="text"],
     input[type="number"],
@@ -57,62 +28,6 @@
       resize: vertical;
     }
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 10px 0;
-    }
-
-    .tag {
-      background: #e1bee7;
-      color: #4a148c;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 13px;
-    }
-
-    .suggestion {
-      display: block;
-      background: #f3e5f5;
-      padding: 5px 10px;
-      margin: 2px 0;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    button {
-      background: #6a1b9a;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 20px;
-      transition: background 0.3s ease;
-    }
-
-    button:hover {
-      background: #4a0072;
-    }
-
-    .drop-zone {
-      border: 2px dashed #ba68c8;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      color: #6a1b9a;
-      cursor: pointer;
-      margin-bottom: 10px;
-      transition: background 0.3s ease;
-    }
-
-    .drop-zone.dragover {
-      background-color: #f3e5f5;
-    }
-
     #coverPreview {
       max-width: 100%;
       height: auto;
@@ -123,68 +38,85 @@
   </style>
 </head>
 <body>
-  <form action="upload.php" method="POST" enctype="multipart/form-data">
-    <h2>Upload a Document</h2>
-
-    <label>Title:</label>
-    <input type="text" name="title" required>
-
-    <label>Subtitle:</label>
-    <input type="text" name="subtitle">
-
-    <label>Category:</label>
-    <select id="category" required onchange="loadSubcategories(this.value)"></select>
-
-    <label>Subcategory:</label>
-    <select name="subcategory_id" id="subcategory" required></select>
-
-    <label>Authors:</label>
-    <input type="text" id="authors-input" placeholder="Type author name" autocomplete="off" />
-    <div id="authorsSuggestions"></div>
-    <div id="authors-tags" class="tags"></div>
-
-    <label>Publisher:</label>
-    <input type="text" id="publisherInput" name="publisher" placeholder="Enter publisher" autocomplete="off" />
-    <div id="publisherSuggestions"></div>
-
-    <label>Year:</label>
-    <input type="number" name="publication_year">
-
-    <label>Edition:</label>
-    <input type="number" name="edition">
-
-    <label>ISBN:</label>
-    <input type="text" name="isbn">
-
-    <label>Language:</label>
-    <select name="language_id" id="language" required></select>
-
-    <label>Page Count:</label>
-    <input type="number" name="page_count">
-
-    <label>Status:</label>
-    <select name="status_id" id="status"></select>
-
-    <label>Keywords:</label>
-    <input type="text" id="keywords-input" placeholder="Type keyword" autocomplete="off" />
-    <div id="keywordsSuggestions"></div>
-    <div id="keywords-tags" class="tags"></div>
-
-    <label>Summary:</label>
-    <textarea name="summary" rows="4"></textarea>
-
-    <label>Upload File (PDF, EPUB, etc.):</label>
-    <input type="file" name="document_file" accept=".pdf,.epub,.docx" required>
-
-    <label>Optional Cover Image:</label>
-    <div class="drop-zone" id="drop-zone">
-      Drag & drop cover image here or click to select
+  <header>
+    <div class="top-header">
+        <div class="title-div">
+            <img src="../images/qw_silver.png" alt="QuillWizards Logo">
+            <h1>QuillWizards Library <span class="header-admin-tag">Admin Pages</span></h1>
+        </div>
+        <nav class="nav-links">
+            <a href="index.php" id="library-link">📚 Public Library</a>
+            <a href="../" id="home-link">🏠 QuillWizards Home</a>
+        </nav>
     </div>
-    <input type="file" id="coverInput" name="cover_image" accept="image/*" style="display:none;" />
-    <img id="coverPreview" alt="Cover Preview" />
-
-    <button type="submit">Upload Document</button>
-  </form>
+  </header>
+  <main>
+    <h2>Add New Book</h2>
+    <form action="upload.php" method="POST" enctype="multipart/form-data" class="upload-form">
+  
+      <label>Title<span class="required">*</span></label>
+      <input type="text" name="title" required>
+  
+      <label>Subtitle</label>
+      <input type="text" name="subtitle">
+  
+      <label>Category<span class="required">*</span></label>
+      <select id="category" required onchange="loadSubcategories(this.value)"></select>
+  
+      <label>Subcategory<span class="required">*</span></label>
+      <select name="subcategory_id" id="subcategory" required></select>
+  
+      <label>Authors</label>
+      <input type="text" id="authors-input" placeholder="Type author name" autocomplete="off" />
+      <div id="authorsSuggestions"></div>
+      <div id="authors-tags" class="tags"></div>
+  
+      <label>Publisher</label>
+      <input type="text" id="publisherInput" name="publisher" placeholder="Enter publisher" autocomplete="off" />
+      <div id="publisherSuggestions"></div>
+  
+      <label>Year</label>
+      <input type="number" name="publication_year">
+  
+      <label>Edition</label>
+      <input type="number" name="edition">
+  
+      <label>ISBN</label>
+      <input type="text" name="isbn">
+  
+      <label>Language<span class="required">*</span></label>
+      <select name="language_id" id="language" required></select>
+  
+      <label>Page Count</label>
+      <input type="number" name="page_count">
+  
+      <label>Status</label>
+      <select name="status_id" id="status"></select>
+  
+      <label>Keywords<span class="required">*</span></label>
+      <input type="text" id="keywords-input" placeholder="Type keyword" autocomplete="off" />
+      <div id="keywordsSuggestions"></div>
+      <div id="keywords-tags" class="tags"></div>
+  
+      <label>Summary:</label>
+      <textarea name="summary" rows="4"></textarea>
+  
+      <label>Upload File (PDF, EPUB, DOCX, etc.)<span class="required">*</span></label>
+      <input type="file" name="document_file" accept=".pdf,.epub,.docx" required>
+  
+      <label>Optional Cover Image:</label>
+      <div class="drop-zone" id="drop-zone">
+        Drag & drop cover image here or click to select
+      </div>
+      <input type="file" id="coverInput" name="cover_image" accept="image/*" style="display:none;" />
+      <img id="coverPreview" alt="Cover Preview" />
+  
+      <button type="submit" class="upload-button">Add to Library</button>
+    </form>  
+  </main>
+  <footer>
+      &copy; 2025 QuillWizards. All rights reserved.
+  </footer>
 
   <script>
     function initTagInput(inputId, tagContainerId, searchUrl, fieldName) {

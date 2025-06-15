@@ -28,7 +28,7 @@ $subcategory_id = intval($_POST["subcategory_id"] ?? 0);
 $summary = trim($_POST["summary"] ?? "");
 $file_path = trim($_POST["file_path"] ?? "");
 $fileId = trim($_POST["fileId"] ?? "");
-$cover_image = trim($_POST["cover_image"] ?? null); // fallback
+$cover_image = trim($_POST["cover_image"] ?? "covers/default.png"); // fallback
 
 // Handle file upload if provided
 if (isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] === UPLOAD_ERR_OK) {
