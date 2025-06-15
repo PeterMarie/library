@@ -1,75 +1,72 @@
-<?php
-
-?>
-<!doctype HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Library Home</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuillWizards Library</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #7C5091, #8C60a1);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .search-box input {
+            border: none;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+        }
+
+        .search-box button:hover {
+            background-color: #e0dff2;
+            transform: scale(1.05);
+        }
+
+    </style>
 </head>
 <body>
     <header>
-        <h1>Personal Library</h1>
-        <a href="#add_book" ><button>Add Book</button></a>
+        <div class="top-header">
+            <div class="title-div">
+                <img src="../images/qw_silver.png" alt="QuillWizards Logo">
+                <h1>QuillWizards Library</h1>
+            </div>
+            <nav class="nav-links">
+                <a href="../" id="home-link">🏠 QuillWizards Home</a>
+            </nav>
+        </div>
     </header>
     <main>
-        <section>
-            <form>
-                <input type="text" id="searchbar" name="searchbar" />
-            </form>
-            <div id="search_results"></div>
-        </section>
-        <section>
-            <aside id="tags_aside">
-                <span id="tag_header">Tags</span>
-            </aside>
-            <section id="recents">
-
-            </section>
-            <section id="results">
-
-            </section>
-            <section id="add_book">
-                <h2>Add Book</h2>
-                <form id="add_book_form">
-                    <fieldset>
-                        <legend for="file">Upload File</legend>
-                        <input type="file" name="file" id="file_upload"/>
-                    </fieldset>
-                    <fieldset>
-                        <legend for="title">Title</legend><input type="text" name="title" id="title" required />
-                    </fieldset>
-                    <fieldset>
-                        <legend for="subtitle">Subtitle</legend><input type="text" name="subtitle" id="subtitle" />
-                    </fieldset>
-                    <fieldset>
-                        <legend for="category">Category</legend>
-                        <select name="category" id="category">
-                            <option>Select Category</option>
-                            <option value="1">Fiction</option>
-                            <option value="2">Non-Fiction</option>
-                            <option value="3">Journal Piece/Article</option>
-                            <option value="4">Full Textbook</option>
-                        </select>
-                    </fieldset>
-                    <fieldset>
-                        <legend for="author">Author</legend><input type="text" class="customizible-items" name="author" id="author" data-src="authors" /><button disabled>Add Author</button>
-                        <span id="authors"></span>
-                    </fieldset>
-                    <fieldset>
-                        <legend for="new_tags">Tags</legend>
-                        <input type="text" class="customizible-items" name="new_tag" id="new_tag" data-src="tags" /><button disabled>Add tag</button>
-                        <span id="tags"></span>
-                    </fieldset>
-                    <button type="submit">Add to Library</button>
-                </form>
-            </section>
-        </section>
+        <div class="intro-text">
+            Welcome to the QuillWizards Library – a freely accessible platform where research meets opportunity. Discover, explore, and download scholarly works with ease.
+        </div>
+        <div class="search-box">
+            <input type="text" id="searchQuery" placeholder="Search research titles, authors or keywords...">
+            <button onclick="performSearch()">Search</button>
+        </div>
+        <button class="browse-button" onclick="browseAll()">Browse Full Library</button>
     </main>
     <footer>
-        <span>Created by Peter M. Ogwara &#169;2023</span>
+        &copy; 2025 QuillWizards. All rights reserved.
     </footer>
-    <script src="script.js" type="text/javascript"></script>
+
+    <script>
+        function performSearch() {
+            const query = document.getElementById('searchQuery').value.trim();
+            if (query) {
+                window.location.href = `viewer.html?search=${encodeURIComponent(query)}`;
+            }
+        }
+
+        function browseAll() {
+            window.location.href = 'viewer.html';
+        }
+    </script>
 </body>
 </html>

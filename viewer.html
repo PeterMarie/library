@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QuillWizards Library</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css" >
+    <style>
+        .search-container {
+            margin-bottom: 0;
+            gap: 10px;
+            align-self: flex-start;
+        }
+    
+        .search-container input,
+        .search-container select {
+            padding: 8px 10px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: box-shadow 0.3s ease;
+        }
+    
+        .search-container input:focus,
+        .search-container select:focus {
+            outline: none;
+            border-color: #6f42c1;
+            box-shadow: 0 0 0 2px rgba(111, 66, 193, 0.2);
+        }
+    
+        /* Responsive layout */
+        @media (min-width: 768px) {
+            .document-list {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    
+    
+    </style>
+    
+</head>
+<body>
+    <header>
+        <div class="top-header">
+            <div class="title-div">
+                <img src="../images/qw_silver.png" alt="QuillWizards Logo">
+                <h1>QuillWizards Library</h1>
+            </div>
+            <nav class="nav-links">
+                <a href="index.php" id="library-link">📚 Library Home</a>
+                <a href="../" id="home-link">🏠 QuillWizards Home</a>
+            </nav>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Search by title, author, or keyword" onkeyup="fetchDocuments()">
+            <select id="category-filter" onchange="category_change(this.value)">
+                <option value="">All Categories</option>
+            </select>
+            <select id="subcategory-filter" onchange="fetchDocuments()">
+                <option value="">All Sub-Categories</option>
+            </select>
+            <select id="language-filter" onchange="fetchDocuments()">
+                <option value="">All Languages</option>
+            </select>
+            <select id="format-filter" onchange="fetchDocuments()">
+                <option value="">All Formats</option>
+            </select>
+            <!--<select id="status-filter" onchange="fetchDocuments()">
+                <option value="">All Statuses</option>
+            </select>-->
+            <input type="number" id="year-filter" placeholder="Min Year" onchange="fetchDocuments()" style="width:100px;">
+        </div>
+    </header>
+    <main>
+        <div class="document-list" id="document-list">
+            <!-- Documents will be loaded here -->
+        </div>
+        <div class="pagination" id="pagination">
+            <!-- Pagination buttons will appear here -->
+        </div>
+    </main>
+    <footer>
+        &copy; 2025 QuillWizards. All rights reserved.
+    </footer>
+
+
+    <script>
+        let currentPage = 1;
+        const pageSize = 5;
+
+        function applyFilterValue(field, value) {
+            $(`#${field}-filter`).val(value);
+            currentPage = 1;
+            fetchDocuments();
+        }
+
+        function renderDocuments(documents) {
+            const list = $('#document-list');
+            list.empty();
+
+            if (documents.length === 0) {
+                list.append('<div>No documents found.</div>');
+                return;
+            }
+
+            documents.forEach(doc => {
+                const html = `
+                    <div class="document-item">
+                        <a href="book.html?doc=${doc.fileId}" target="_blank">
+                            <img src="${doc.cover_image}" alt="Cover" class="cover-image">
+                        </a>
+                        <div class="document-info">
+                            <div class="document-title">
+                                <a href="book.html?doc=${doc.fileId}" target="_blank">${doc.title}</a>
+                            </div>
+                            <div class="document-meta">
+                                <strong>Authors:</strong> ${doc.authors.map(a => `<span onclick=\"applyFilterValue('search','${a}')\">${a}</span>`).join(", ")}<br>
+                                <strong>Category:</strong> <span onclick="applyFilterValue('category','${doc.category_id}')">${doc.category}</span> / 
+                                <span onclick="applyFilterValue('subcategory','${doc.subcategory_id}')">${doc.subcategory}</span><br>
+                                <strong>Year:</strong> <span onclick="applyFilterValue('year','${doc.publication_year}')">${doc.publication_year}</span> | 
+                                <strong>Format:</strong> <span onclick="applyFilterValue('format','${doc.format_id}')">${doc.format}</span> | 
+                                <strong>Language:</strong> <span onclick="applyFilterValue('language','${doc.language_id}')">${doc.language}</span> <!--| 
+                                <strong>Status:</strong> <span onclick="applyFilterValue('status','${doc.status_id}')">${doc.reading_status}</span>-->
+                            </div>
+                            <a href="${doc.file_path}" target="_blank" class="download-link"><i class="fa fa-download"></i> Download</a>
+                        </div>
+                    </div>
+                `;
+                list.append(html);
+            });
+        }
+
+        function renderPagination(totalPages) {
+            const pagination = $('#pagination');
+            pagination.empty();
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = $(`<button>${i}</button>`);
+                if (i === currentPage) button.addClass('active');
+                button.on('click', () => {
+                    currentPage = i;
+                    fetchDocuments();
+                });
+                pagination.append(button);
+            }
+        }
+
+        function fetchDocuments() {
+            const filters = {
+                search: $('#search').val(),
+                category_id: $('#category-filter').val(),
+                subcategory_id: $('#subcategory-filter').val(),
+                language_id: $('#language-filter').val(),
+                format_id: $('#format-filter').val(),
+                status_id: $('#status-filter').val(),
+                year_min: $('#year-filter').val(),
+                page: currentPage,
+                pageSize: pageSize
+            };
+
+            $.post('api/list_documents.php', filters, function(response) {
+                renderDocuments(response.documents);
+                renderPagination(response.totalPages);
+            }, 'json');
+        }
+
+        function fetchFilters() {
+            $.getJSON('api/get_filters.php', function(data) {
+                data.categories.forEach(item => {
+                    $('#category-filter').append(`<option value="${item.id}">${item.name}</option>`);
+                });
+                data.languages.forEach(item => {
+                    $('#language-filter').append(`<option value="${item.id}">${item.name}</option>`);
+                });
+                data.formats.forEach(item => {
+                    $('#format-filter').append(`<option value="${item.id}">${item.name}</option>`);
+                });
+                data.reading_status.forEach(item => {
+                    $('#status-filter').append(`<option value="${item.id}">${item.name}</option>`);
+                });
+            });
+        }
+
+        function fetchSubcategories(categoryId){
+            $.getJSON(`api/api_get_subcategories.php?category_id=${categoryId}`, function(data) {
+                $('#subcategory-filter').empty().append(`<option value="">All Sub-Categories</option>`);
+                data.forEach(item => {
+                    $('#subcategory-filter').append(`<option value="${item.id}">${item.name}</option>`);
+                });
+            });
+        }
+
+        function category_change(categoryId){
+            fetchDocuments();
+            $("#subcategory-filter").empty().append(`<option value="">All Sub-Categories</option>`);
+            if(categoryId > 0){
+                fetchSubcategories(categoryId);
+            }
+        }
+
+        $(document).ready(function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('search') || ''; 
+            if(searchQuery){
+                $('#search').val(searchQuery);
+
+                const url = new URL(window.location.href);
+                url.searchParams.delete('search');
+
+                window.history.replaceState({}, document.title, url.pathname);
+            }
+
+            fetchFilters();
+            fetchDocuments();
+        });
+    </script>
+</body>
+</html>
