@@ -405,22 +405,12 @@ footer {
   }
 }
 
-@media (max-width: 767px) {
-  .document-item {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-  }
-
-  .cover-image {
-      width: 80px;
-      height: 110px;
-  }
-
-  .document-info {
-      width: 100%;
+@media (min-width: 1120px) {
+  .document-list {
+      grid-template-columns: 1fr 1fr 1fr;
   }
 }
+
 
 /* Animations */
 @keyframes fadeInDown {

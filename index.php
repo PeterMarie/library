@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuillWizards Library</title>
+    <link rel="stylesheet" href="css/qw_advert.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
         body {
@@ -56,6 +57,12 @@
         &copy; 2025 QuillWizards. All rights reserved.
     </footer>
 
+    
+    <script src="qw_advert_layout1.js" ></script>
+    <script>
+        let ad_number = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+        show_qw_advert(ad_number);
+    </script>
     <script>
         function performSearch() {
             const query = document.getElementById('searchQuery').value.trim();

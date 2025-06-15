@@ -5,6 +5,7 @@
     <title>QuillWizards Library</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/qw_advert.css">
     <link rel="stylesheet" href="css/style.css" >
     <style>
         .search-container {
@@ -28,15 +29,6 @@
             border-color: #6f42c1;
             box-shadow: 0 0 0 2px rgba(111, 66, 193, 0.2);
         }
-    
-        /* Responsive layout */
-        @media (min-width: 768px) {
-            .document-list {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-    
-    
     </style>
     
 </head>
@@ -87,7 +79,7 @@
 
     <script>
         let currentPage = 1;
-        const pageSize = 5;
+        const pageSize = 15;
 
         function applyFilterValue(field, value) {
             $(`#${field}-filter`).val(value);
@@ -214,6 +206,11 @@
             fetchFilters();
             fetchDocuments();
         });
+    </script>
+    <script src="qw_advert_layout1.js" ></script>
+    <script>
+        let ad_number = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+        show_qw_advert(ad_number);
     </script>
 </body>
 </html>
