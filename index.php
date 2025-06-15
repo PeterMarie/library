@@ -44,6 +44,7 @@
         </div>
     </header>
     <main>
+        <img src="img/bookshelf_cropped.png" alt="png image from pngtree.com" id="library-home-image" style="width:40%"/>
         <div class="intro-text">
             Welcome to the QuillWizards Library – a freely accessible platform where research meets opportunity. Discover, explore, and download scholarly works with ease.
         </div>
