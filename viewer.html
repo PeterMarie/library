@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>QuillWizards Library</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="css/qw_advert.css">
     <link rel="stylesheet" href="css/style.css" >
     <style>
@@ -35,21 +35,21 @@
 <body>
     <header>
         <div class="top-header">
-            <div class="title-div">
+            <div class="title-div" title="Home">
                 <img src="../images/qw_silver.png" alt="QuillWizards Logo">
                 <h1>QuillWizards Library</h1>
             </div>
             <nav class="nav-links">
-                <a href="index.php" id="library-link">📚 Library Home</a>
-                <a href="../" id="home-link">🏠 QuillWizards Home</a>
+                <a href="index.php"><span class="nav-icon"><i class="fa fa-book"></i></span><span>Library Home</span></a>
+                <a href="https://www.quillwizards.com/"><span class="nav-icon"><i class="fa fa-house"></i></span><span>QuillWizards Home</span></a>
             </nav>
         </div>
         <div class="search-container">
-            <input type="text" id="search" placeholder="Search by title, author, or keyword" onkeyup="fetchDocuments()">
-            <select id="category-filter" onchange="category_change(this.value)">
+            <input type="text" id="search" placeholder="Search by title, author, or keyword" title="Search by title, author, or keyword" onkeyup="fetchDocuments()">
+            <select id="category-filter" onchange="category_change(this.value)" title="Select book category" >
                 <option value="">All Categories</option>
             </select>
-            <select id="subcategory-filter" onchange="fetchDocuments()">
+            <select id="subcategory-filter" onchange="fetchDocuments()" title="Select book subcategory" >
                 <option value="">All Sub-Categories</option>
             </select>
             <select id="language-filter" onchange="fetchDocuments()">

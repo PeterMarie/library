@@ -4,18 +4,23 @@
     <meta charset="UTF-8">
     <title>Manage QuillWizards Library</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        .book-cover { 
-            width: 100px; height: 140px; object-fit: cover; border: 1px solid #ccc; margin-bottom: 10px; 
+        .book-cover {
+            width: 100px;
+            height: 140px;
+            object-fit: cover;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
         }
+
         .search-container {
             margin-bottom: 0;
             gap: 10px;
             align-self: flex-start;
         }
-    
+
         .search-container input,
         .search-container select {
             padding: 8px 10px;
@@ -24,7 +29,7 @@
             font-size: 14px;
             transition: box-shadow 0.3s ease;
         }
-    
+
         .search-container input:focus,
         .search-container select:focus {
             outline: none;
@@ -32,221 +37,285 @@
             box-shadow: 0 0 0 2px rgba(111, 66, 193, 0.2);
         }
 
+        .tag {
+            display: inline-block;
+            background-color: #eee;
+            border-radius: 4px;
+            padding: 2px 6px;
+            margin: 2px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <div class="top-header">
-            <div class="title-div">
-                <img src="../images/qw_silver.png" alt="QuillWizards Logo">
-                <h1>QuillWizards Library <span class="header-admin-tag">Admin Pages</span></h1>
-            </div>
-            <nav class="nav-links">
-                <a href="upload.html" id="upload-link">📤 Add New Book</a>
-                <a href="index.php" id="library-link">📚 Public Library</a>
-                <a href="../" id="home-link">🏠 QuillWizards Home</a>
-            </nav>
+<header>
+    <div class="top-header">
+        <div class="title-div">
+            <img src="../images/qw_silver.png" alt="QuillWizards Logo">
+            <h1>QuillWizards Library <span class="header-admin-tag">Admin Pages</span></h1>
         </div>
-        <div class="search-container">
-            <input type="text" id="search" placeholder="Search by title, author, or keyword" onkeyup="fetchBooks()">
-        </div>
-    </header>
-    <main>
-        <h2>Manage Books</h2>
-    
-        <div id="book-list" class="document-list"></div>
-        <div class="pagination" id="pagination"></div>
-    </main>
-    <footer>
-        &copy; 2025 QuillWizards. All rights reserved.
-    </footer>
+        <nav class="nav-links">
+            <a href="upload.html"><span class="nav-icon"><i class="fa-solid fa-file-circle-plus"></i></span><span>Add New Book</span></a>
+            <a href="index.php"><span class="nav-icon"><i class="fa-solid fa-book"></i></span><span>Library Home</span></a>
+            <a href="https://www.quillwizards.com/"><span class="nav-icon"><i class="fa-solid fa-house"></i></span><span>QuillWizards Home</span></a>
+        </nav>
+    </div>
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Search by title, author, or keyword" onkeyup="fetchBooks()">
+    </div>
+</header>
+<main>
+    <h2><i class="fa-solid fa-file-pen" style="margin-right:12px;"></i>Manage Books</h2>
+    <div id="book-list" class="document-list"></div>
+    <div class="pagination" id="pagination"></div>
+</main>
+<footer>
+    &copy; 2025 QuillWizards. All rights reserved.
+</footer>
+<script>
+    let metaData = { categories: [], formats: {}, languages: {}, reading_status: {} };
+    let currentPage = 1;
+    const pageSize = 10;
 
+    function fetchMeta() {
+        $.getJSON('api/get_filters.php', function(data) {
+            metaData = data;
+            fetchBooks();
+        });
+    }
 
-    <script>
-        let metaData = { categories: [], formats: {}, languages: {}, reading_status: {} };
-        let currentPage = 1;
-        const pageSize = 10;
+    function buildSelect(name, selectedValue, options) {
+        let html = `<select class="${name}">`;
+        options.forEach(opt => {
+            html += `<option value="${opt.id}"${opt.id == selectedValue ? ' selected' : ''}>${opt.name}</option>`;
+        });
+        html += '</select>';
+        return html;
+    }
 
-        function fetchMeta() {
-            $.getJSON('api/get_filters.php', function(data) {
-                metaData = data;
-                fetchBooks();
+    function buildSubcategorySelect(selectedValue, categoryId) {
+        const category = metaData.categories.find(cat => cat.id == categoryId);
+        const subcategories = category ? category.subcategories : [];
+        let html = `<select class="subcategory_id">`;
+        subcategories.forEach(sub => {
+            html += `<option value="${sub.id}"${sub.id == selectedValue ? ' selected' : ''}>${sub.name}</option>`;
+        });
+        html += `</select>`;
+        return html;
+    }
+
+    function fetchBooks() {
+        const query = $('#search').val();
+        $.post('api/list_documents.php', { search: query }, function(response) {
+            renderBooks(response.documents);
+        }, 'json');
+    }
+
+    function renderBooks(books) {
+        const container = $('#book-list');
+        container.empty();
+        const pagination = $('#pagination');
+        pagination.empty();
+
+        const totalPages = Math.ceil(books.length / pageSize);
+        const start = (currentPage - 1) * pageSize;
+        const pageBooks = books.slice(start, start + pageSize);
+
+        pageBooks.forEach(book => {
+            const id = book.id;
+            const categorySelect = buildSelect('category_id', book.category_id, metaData.categories);
+            const subcategorySelect = buildSubcategorySelect(book.subcategory_id, book.category_id);
+
+            const form = $(`
+                <div class="book-form" data-id="${id}">
+                    <img src="${book.cover_image}" class="book-cover" alt="Cover">
+                    <input type="hidden" class="cover_image" value="${book.cover_image}">
+                    <input type="file" class="cover-upload">
+
+                    <label>Title</label>
+                    <input type="text" class="title" value="${book.title}">
+
+                    <label>Subtitle</label>
+                    <input type="text" class="subtitle" value="${book.subtitle}">
+
+                    <label>Series Title</label>
+                    <input type="text" class="series_title" value="${book.series_title}">
+
+                    <label>Authors</label>
+                    <input type="text" id="authors-input-${id}" placeholder="Type author name" autocomplete="off">
+                    <div id="authorsSuggestions-${id}"></div>
+                    <div id="authors-tags-${id}" class="tags"></div>
+
+                    <label>Category</label>
+                    ${categorySelect}
+
+                    <label>Subcategory</label>
+                    ${subcategorySelect}
+
+                    <label>Format</label>
+                    ${buildSelect('format_id', book.format_id, metaData.formats)}
+
+                    <label>Language</label>
+                    ${buildSelect('language_id', book.language_id, metaData.languages)}
+
+                    <label>Publisher</label>
+                    <input type="text" class="publisher" value="${book.publisher}">
+
+                    <label>Year</label>
+                    <input type="number" class="publication_year" value="${book.publication_year}">
+
+                    <label>Page Count</label>
+                    <input type="number" class="page_count" value="${book.page_count}">
+
+                    <label>Keywords</label>
+                    <input type="text" id="keywords-input-${id}" placeholder="Type keyword" autocomplete="off">
+                    <div id="keywordsSuggestions-${id}"></div>
+                    <div id="keywords-tags-${id}" class="tags"></div>
+
+                    <label>Summary</label>
+                    <textarea class="summary">${book.summary || ''}</textarea>
+
+                    <a href="${book.file_path}" target="_blank" class="download-link"><i class="fa fa-download"></i> Download</a>
+                    <button class="update-btn" onclick="updateBook('${id}')">Update</button>
+                    <button class="delete-btn" onclick="deleteBook('${id}')">Delete</button>
+                </div>`);
+
+            container.append(form);
+
+            const validAuthors = (book.authors || []).filter(author => author.toLowerCase() !== 'unknown');
+            initTagInput(`authors-input-${id}`, `authors-tags-${id}`, 'api/search_authors.php', `authorsSuggestions-${id}`, validAuthors);
+            initTagInput(`keywords-input-${id}`, `keywords-tags-${id}`, 'api/search_keywords.php', `keywordsSuggestions-${id}`, book.keywords);
+        });
+
+        for (let i = 1; i <= totalPages; i++) {
+            const button = $(`<button>${i}</button>`);
+            button.on("click", function () { goToPage(i); });
+            if (i === currentPage) button.addClass('active');
+            pagination.append(button);
+        }
+    }
+
+    function initTagInput(inputId, tagContainerId, searchUrl, suggestionBoxId, existing = []) {
+        const input = $(`#${inputId}`);
+        const container = $(`#${tagContainerId}`);
+        const suggestionsBox = $(`#${suggestionBoxId}`);
+        const values = [...existing];
+
+        function renderTags() {
+            container.empty();
+            values.forEach(v => {
+                const tag = $(`<span class="tag">${v}</span>`);
+                tag.on("click", function () {
+                    const index = values.indexOf(v);
+                    if (index !== -1) {
+                        values.splice(index, 1);
+                        renderTags();
+                        input.val(v);
+                    }
+                });
+                container.append(tag);
             });
         }
 
-        function buildSelect(name, selectedValue, options) {
-            let html = `<select class="${name}">`;
-            options.forEach(opt => {
-                html += `<option value="${opt.id}"${opt.id == selectedValue ? ' selected' : ''}>${opt.name}</option>`;
-            });
-            html += '</select>';
-            return html;
+        renderTags();
+
+        input.on("keydown", function (e) {
+            if (e.key === "," || e.key === "Enter") {
+                e.preventDefault();
+                const val = input.val().trim().replace(/,$/, "");
+                if (val && !values.includes(val)) {
+                    values.push(val);
+                    renderTags();
+                }
+                input.val("");
+                suggestionsBox.empty();
+            }
+        });
+
+        input.on("input", function () {
+            const query = input.val().trim();
+            suggestionsBox.empty();
+            if (query.length > 0) {
+                $.getJSON(`${searchUrl}?q=${query}`, function (results) {
+                    results.forEach(row => {
+                        const suggestion = $(`<span class="suggestion">${row.name}</span>`);
+                        suggestionsBox.append(suggestion);
+                        suggestion.on("click", () => {
+                            if (!values.includes(row.name)) {
+                                values.push(row.name);
+                                renderTags();
+                            }
+                            input.val("");
+                            suggestionsBox.empty();
+                        });
+                    });
+                });
+            }
+        });
+
+        input.data("getTags", () => values);
+    }
+
+    function updateBook(id) {
+        if (!confirm('Are you sure you want to update this book?')) return;
+
+        const form = $(`div[data-id='${id}']`);
+        const fileInput = form.find('.cover-upload')[0];
+        const formData = new FormData();
+
+        formData.append('id', id);
+        formData.append('title', form.find('.title').val());
+        formData.append('subtitle', form.find('.subtitle').val());
+        formData.append('series_title', form.find('.series_title').val());
+        formData.append('authors', $(`#authors-input-${id}`).data("getTags")().join(", "));
+        formData.append('keywords', $(`#keywords-input-${id}`).data("getTags")().join(", "));
+        formData.append('category_id', form.find('.category_id').val());
+        formData.append('subcategory_id', form.find('.subcategory_id').val());
+        formData.append('format_id', form.find('.format_id').val());
+        formData.append('language_id', form.find('.language_id').val());
+        formData.append('publisher', form.find('.publisher').val());
+        formData.append('publication_year', form.find('.publication_year').val());
+        formData.append('page_count', form.find('.page_count').val());
+        formData.append('summary', form.find('.summary').val());
+
+        if (fileInput.files.length > 0) {
+            formData.append('cover_image', fileInput.files[0]);
+        } else {
+            formData.append('cover_image', form.find('.cover_image').val());
         }
 
-        function buildSubcategorySelect(selectedValue, categoryId) {
-            const category = metaData.categories.find(cat => cat.id == categoryId);
-            const subcategories = category ? category.subcategories : [];
-            let html = `<select class="subcategory_id">`;
-            subcategories.forEach(sub => {
-                html += `<option value="${sub.id}"${sub.id == selectedValue ? ' selected' : ''}>${sub.name}</option>`;
-            });
-            html += `</select>`;
-            return html;
-        }
+        $.ajax({
+            url: 'api/update_document.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                alert(response.message);
+                if (response.success) fetchBooks();
+            }
+        });
+    }
 
-        function fetchBooks() {
-            const query = $('#search').val();
-            $.post('api/list_documents.php', { search: query }, function(response) {
-                renderBooks(response.documents);
+    function goToPage(page) {
+        currentPage = page;
+        fetchBooks();
+    }
+
+    function deleteBook(id) {
+        if (confirm('Are you sure you want to delete this book?')) {
+            $.post('api/delete_document.php', { id }, function(response) {
+                if (response.success) {
+                    alert('Book deleted');
+                    fetchBooks();
+                } else {
+                    alert(response.message);
+                }
             }, 'json');
         }
+    }
 
-        function renderBooks(books) {
-            const container = $('#book-list');
-            const pagination = $('#pagination');
-            container.empty();
-            pagination.empty();
-
-            const totalPages = Math.ceil(books.length / pageSize);
-            const start = (currentPage - 1) * pageSize;
-            const pageBooks = books.slice(start, start + pageSize);
-
-            pageBooks.forEach(book => {
-                const categorySelect = buildSelect('category_id', book.category_id, metaData.categories);
-                const subcategorySelect = buildSubcategorySelect(book.subcategory_id, book.category_id);
-
-                const form = `
-                    <div class="book-form" data-id="${book.id}">
-                        <img src="${book.cover_image}" class="book-cover" alt="Cover">
-                        <input type="hidden" class="cover_image" value="${book.cover_image}">
-                        <input type="file" class="cover-upload">
-
-                        <label>Title</label>
-                        <input type="text" class="title" value="${book.title}">
-
-                        <label>Authors (comma separated)</label>
-                        <input type="text" class="authors" value="${book.authors.join(', ')}">
-
-                        <label>Category</label>
-                        ${categorySelect}
-
-                        <label>Subcategory</label>
-                        ${subcategorySelect}
-
-                        <label>Format</label>
-                        ${buildSelect('format_id', book.format_id, metaData.formats)}
-
-                        <label>Language</label>
-                        ${buildSelect('language_id', book.language_id, metaData.languages)}
-
-                        <label>Publisher</label>
-                        <input type="text" class="publisher" value="${book.publisher}">
-
-                        <label>Year</label>
-                        <input type="number" class="publication_year" value="${book.publication_year}">
-                        
-                        <label>Page Count</label>
-                        <input type="number" class="page_count" value="${book.page_count}">
-
-                        <label>Summary</label>
-                        <textarea class="summary">${book.summary || ''}</textarea>
-
-                        <a href="${book.file_path}" target="_blank" class="download-link"><i class="fa fa-download"></i> Download</a>
-                        <button class="update-btn" onclick="updateBook('${book.id}')">Update</button>
-                        <button class="delete-btn" onclick="deleteBook('${book.id}')">Delete</button>
-                    </div>`;
-
-                container.append(form);
-            });
-
-            for (let i = 1; i <= totalPages; i++) {
-                const button = $(`<button>${i}</button>`);
-                $(button).on("click", function(){
-                    goToPage(i);
-                });
-                if (i === currentPage) button.addClass('active');
-                pagination.append(button);
-            }
-
-            $('.category_id').on('change', function () {
-                const form = $(this).closest('.book-form');
-                const categoryId = $(this).val();
-                const subSelect = buildSubcategorySelect(null, categoryId);
-                form.find('.subcategory_id').replaceWith(subSelect);
-            });
-
-            $('.cover-upload').on('change', function () {
-                const file = this.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        $(this).closest('.book-form').find('.book-cover').attr('src', e.target.result);
-                    }.bind(this);
-                    reader.readAsDataURL(file);
-                }
-            });
-        }
-
-        function goToPage(page) {
-            currentPage = page;
-            fetchBooks();
-        }
-
-        function updateBook(id) {
-            if (!confirm('Are you sure you want to update this book?')) return;
-
-            const form = $(`div[data-id='${id}']`);
-            const fileInput = form.find('.cover-upload')[0];
-            const formData = new FormData();
-
-            formData.append('id', id);
-            formData.append('title', form.find('.title').val());
-            formData.append('authors', form.find('.authors').val());
-            formData.append('category_id', form.find('.category_id').val());
-            formData.append('subcategory_id', form.find('.subcategory_id').val());
-            formData.append('format_id', form.find('.format_id').val());
-            formData.append('language_id', form.find('.language_id').val());
-            formData.append('publisher', form.find('.publisher').val());
-            formData.append('publication_year', form.find('.publication_year').val());
-            formData.append('page_count', form.find('.page_count').val());
-            formData.append('summary', form.find('.summary').val());
-            if (fileInput.files.length > 0) {
-                formData.append('cover_image', fileInput.files[0]);
-            } else {
-                formData.append('cover_image', form.find('.cover_image').val());
-            }
-
-            $.ajax({
-                url: 'api/update_document.php',
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    alert(response.message);
-                    if(response.success){
-                      fetchBooks();
-                    }
-                }
-            });
-        }
-
-        function deleteBook(id) {
-            if (confirm('Are you sure you want to delete this book?')) {
-                $.post('api/delete_document.php', { id }, function(response) {
-                    if(response.success){
-                      alert('Book deleted'); 
-                    fetchBooks();
-                    } else {
-                      alert(response.message);
-                    }
-                }), 'json';
-            }
-        }
-
-        $(document).ready(function() {
-            fetchMeta();
-        });
-    </script>
+    $(document).ready(fetchMeta);
+</script>
 </body>
 </html>

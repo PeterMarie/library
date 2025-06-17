@@ -712,3 +712,43 @@ Stack trace:
 #0 C:\xampp\htdocs\library\library\test.php(63): mysqli_stmt->bind_param('ssiiiiisssi', '', '', 0, 0, 1, 1, 18, '', '', '', '', 6)
 #1 {main}
   thrown in C:\xampp\htdocs\library\library\test.php on line 63
+[16-Jun-2025 19:56:18 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'k.keyword' in 'field list' in C:\xampp\htdocs\library\library\api\update_document.php:131
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\update_document.php(131): mysqli->query('SELECT k.keywor...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\update_document.php on line 131
+[16-Jun-2025 20:06:15 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'k.keyword' in 'field list' in C:\xampp\htdocs\library\library\api\update_document.php:131
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\update_document.php(131): mysqli->query('SELECT k.keywor...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\update_document.php on line 131
+[16-Jun-2025 20:14:52 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'k.keyword' in 'field list' in C:\xampp\htdocs\library\library\api\update_document.php:136
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\update_document.php(136): mysqli->query('SELECT k.keywor...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\update_document.php on line 136
+[16-Jun-2025 20:15:58 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'k.keyword' in 'field list' in C:\xampp\htdocs\library\library\api\update_document.php:136
+Stack trace:
+#0 C:\xampp\htdocs\library\library\api\update_document.php(136): mysqli->query('SELECT k.keywor...')
+#1 {main}
+  thrown in C:\xampp\htdocs\library\library\api\update_document.php on line 136
+[16-Jun-2025 20:25:57 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\api\update_document.php on line 138
+[16-Jun-2025 20:25:57 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\api\update_document.php on line 138
+[16-Jun-2025 20:25:57 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\api\update_document.php on line 138
+[16-Jun-2025 20:25:57 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\api\update_document.php on line 138
+[16-Jun-2025 20:25:57 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\api\update_document.php on line 138
+[16-Jun-2025 20:25:57 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\api\update_document.php on line 138
+[16-Jun-2025 20:31:21 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\test.php on line 23
+[16-Jun-2025 20:31:21 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\test.php on line 23
+[16-Jun-2025 20:31:21 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\test.php on line 23
+[16-Jun-2025 20:31:21 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\test.php on line 23
+[16-Jun-2025 20:31:21 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\test.php on line 23
+[16-Jun-2025 20:31:21 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\test.php on line 23
+[16-Jun-2025 20:32:05 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\test.php on line 23
+[16-Jun-2025 20:32:05 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\test.php on line 23
+[16-Jun-2025 20:32:05 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\test.php on line 23
+[16-Jun-2025 20:32:05 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\test.php on line 23
+[16-Jun-2025 20:32:05 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\test.php on line 23
+[16-Jun-2025 20:32:05 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\test.php on line 23
+[16-Jun-2025 20:32:05 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\test.php on line 23
+[16-Jun-2025 20:32:05 Europe/Berlin] PHP Warning:  Undefined array key "keyword" in C:\xampp\htdocs\library\library\test.php on line 23

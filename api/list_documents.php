@@ -4,15 +4,28 @@ header("Content-Type: application/json");
 
 function getAuthors($conn, $documentId) {
     $authors = [];
-    $authorStmt = $conn->prepare("SELECT a.name FROM document_authors da JOIN authors a ON da.author_id = a.id WHERE da.document_id = ?");
-    $authorStmt->bind_param("i", $documentId);
-    $authorStmt->execute();
-    $authorResult = $authorStmt->get_result();
-    while ($author = $authorResult->fetch_assoc()) {
-        $authors[] = $author["name"];
+    $stmt = $conn->prepare("SELECT a.name FROM document_authors da JOIN authors a ON da.author_id = a.id WHERE da.document_id = ?");
+    $stmt->bind_param("i", $documentId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $authors[] = $row["name"];
     }
-    $authorStmt->close();
+    $stmt->close();
     return empty($authors) ? ["Unknown"] : $authors;
+}
+
+function getKeywords($conn, $documentId) {
+    $keywords = [];
+    $stmt = $conn->prepare("SELECT k.name FROM document_keywords dk JOIN keywords k ON dk.keyword_id = k.id WHERE dk.document_id = ?");
+    $stmt->bind_param("i", $documentId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $keywords[] = $row["name"];
+    }
+    $stmt->close();
+    return $keywords;
 }
 
 function addCoverImages(&$doc) {
@@ -78,7 +91,7 @@ if (!empty($_POST["min_year"])) {
 
 $search = !empty($_POST["search"]) ? trim($_POST["search"]) : "";
 
-// Search in title and summary
+// Basic search in title and summary
 if ($search !== "") {
     $filterQuery .= " AND (d.title LIKE CONCAT('%', ?, '%') OR d.summary LIKE CONCAT('%', ?, '%'))";
     $types .= "ss";
@@ -99,7 +112,7 @@ $stmt->close();
 $total_pages = ceil($total_documents / $page_size);
 
 $mainQuery = "
-    SELECT DISTINCT d.id, d.title, d.publisher, d.publication_year, d.page_count, 
+    SELECT DISTINCT d.id, d.title, d.subtitle, d.series_title, d.publisher, d.publication_year, d.page_count, 
         d.file_path, d.summary, d.cover_image, d.fileId, 
         l.name AS language, f.type AS format, r.status AS reading_status,
         s.name AS subcategory, c.name AS category,
@@ -121,14 +134,18 @@ $documentIds = [];
 
 while ($row = $result->fetch_assoc()) {
     $row["authors"] = getAuthors($conn, $row["id"]);
+    $row["keywords"] = getKeywords($conn, $row["id"]);
     addCoverImages($row);
     $documents[] = $row;
     $documentIds[] = $row["id"];
 }
 $stmt->close();
 
-// Extra search by author name
+// Extra search by author name and keyword
 if ($search !== "") {
+    $extraMatches = [];
+
+    // --- Search by author name ---
     $authorSearchQuery = "
         SELECT DISTINCT d.id
         FROM documents d
@@ -136,19 +153,40 @@ if ($search !== "") {
         JOIN authors a ON da.author_id = a.id
         WHERE a.name LIKE CONCAT('%', ?, '%')
     ";
+    $stmt = $conn->prepare($authorSearchQuery);
+    $stmt->bind_param("s", $search);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        if (!in_array($row["id"], $documentIds)) {
+            $extraMatches[] = $row["id"];
+        }
+    }
+    $stmt->close();
 
-    $authorSearchStmt = $conn->prepare($authorSearchQuery);
-    $authorSearchStmt->bind_param("s", $search);
-    $authorSearchStmt->execute();
-    $authorResults = $authorSearchStmt->get_result();
+    // --- Search by keyword ---
+    $keywordSearchQuery = "
+        SELECT DISTINCT d.id
+        FROM documents d
+        JOIN document_keywords dk ON d.id = dk.document_id
+        JOIN keywords k ON dk.keyword_id = k.id
+        WHERE k.name LIKE CONCAT('%', ?, '%')
+    ";
+    $stmt = $conn->prepare($keywordSearchQuery);
+    $stmt->bind_param("s", $search);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        if (!in_array($row["id"], $documentIds)) {
+            $extraMatches[] = $row["id"];
+        }
+    }
+    $stmt->close();
 
-    $authorMatches = [];
-    while ($row = $authorResults->fetch_assoc()) {
-        $docId = $row["id"];
-        if (in_array($docId, $documentIds)) continue;
-
+    // Fetch documents from extraMatches
+    foreach (array_unique($extraMatches) as $docId) {
         $docQuery = "
-            SELECT d.id, d.title, d.publisher, d.publication_year, d.page_count, 
+            SELECT d.id, d.title, d.subtitle, d.series_title, d.publisher, d.publication_year, d.page_count, 
                 d.file_path, d.summary, d.cover_image, d.fileId, 
                 l.name AS language, f.type AS format, r.status AS reading_status,
                 s.name AS subcategory, c.name AS category,
@@ -178,20 +216,17 @@ if ($search !== "") {
 
             if ($match) {
                 $doc["authors"] = getAuthors($conn, $doc["id"]);
+                $doc["keywords"] = getKeywords($conn, $doc["id"]);
                 addCoverImages($doc);
-                $authorMatches[] = $doc;
-                $documentIds[] = $doc["id"];
+                $documents[] = $doc;
             }
         }
         $docStmt->close();
     }
-    $authorSearchStmt->close();
 
-    // Merge and slice
-    $allDocuments = array_merge($documents, $authorMatches);
-    $total_documents = count($allDocuments);
+    $total_documents = count($documents);
     $total_pages = ceil($total_documents / $page_size);
-    $documents = array_slice($allDocuments, $offset, $page_size);
+    $documents = array_slice($documents, $offset, $page_size);
 }
 
 echo json_encode([

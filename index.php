@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuillWizards Library</title>
     <link rel="stylesheet" href="css/qw_advert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
         body {
@@ -39,7 +40,8 @@
                 <h1>QuillWizards Library</h1>
             </div>
             <nav class="nav-links">
-                <a href="../" id="home-link">🏠 QuillWizards Home</a>
+                <a href="index.php"><span class="nav-icon"><i class="fa fa-book"></i></span><span>Library Home</span></a>
+                <a href="https://www.quillwizards.com/"><span class="nav-icon"><i class="fa fa-house"></i></span><span>QuillWizards Home</span></a>
             </nav>
         </div>
     </header>
