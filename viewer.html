@@ -157,41 +157,75 @@
             }, 'json');
         }
 
-        function fetchFilters() {
+        function fetchFilters(category=null, subcategory=null, format=null,language=null,status=null) {
             $.getJSON('api/get_filters.php', function(data) {
                 data.categories.forEach(item => {
-                    $('#category-filter').append(`<option value="${item.id}">${item.name}</option>`);
+                    let category_option = `<option id="category_${item.id}" value="${item.id}" `;
+                    if(item.id == category){
+                        category_option = category_option + `selected `;
+                    }
+                    category_option = category_option + `>${item.name}</option>`;
+                    $('#category-filter').append(category_option);
                 });
                 data.languages.forEach(item => {
-                    $('#language-filter').append(`<option value="${item.id}">${item.name}</option>`);
+                    let language_option = `<option id="language_${item.id}" value="${item.id}" `;
+                    if(item.id == language){
+                        language_option = language_option + `selected `;
+                    }
+                    language_option = language_option + `>${item.name}</option>`;
+                    $('#language-filter').append(language_option);
                 });
                 data.formats.forEach(item => {
-                    $('#format-filter').append(`<option value="${item.id}">${item.name}</option>`);
+                    let format_option = `<option id="format_${item.id}" value="${item.id}" `;
+                    if(item.id == format){
+                        format_option = format_option + `selected `;
+                    }
+                    format_option = format_option + `>${item.name}</option>`;
+                    $('#format-filter').append(format_option);
                 });
                 data.reading_status.forEach(item => {
-                    $('#status-filter').append(`<option value="${item.id}">${item.name}</option>`);
+                    let status_option = `<option id="status_${item.id}" value="${item.id}" `;
+                    if(item.id == status){
+                        status_option = status_option + `selected `;
+                    }
+                    status_option = status_option + `>${item.name}</option>`;   
+                    $('#status-filter').append(`<option id="status_${item.id}" value="${item.id}">${item.name}</option>`);
                 });
             });
+            if(category){
+                fetchSubcategories(category, subcategory);
+            }
         }
 
-        function fetchSubcategories(categoryId){
+        function fetchSubcategories(categoryId, subcategoryId){
             $.getJSON(`api/api_get_subcategories.php?category_id=${categoryId}`, function(data) {
                 $('#subcategory-filter').empty().append(`<option value="">All Sub-Categories</option>`);
                 data.forEach(item => {
-                    $('#subcategory-filter').append(`<option value="${item.id}">${item.name}</option>`);
+                    let subcategory_option = `<option id="subcategory_${item.id}" value="${item.id}" `;
+                    if(item.id == subcategoryId){
+                        subcategory_option = subcategory_option +  ` selected `;
+                    }
+                    subcategory_option = subcategory_option + `>${item.name}</option>`;
+                    $('#subcategory-filter').append(subcategory_option);
                 });
             });
         }
 
-        function category_change(categoryId){
+        function category_change(categoryId, subcategoryId=null){
             fetchDocuments();
             $("#subcategory-filter").empty().append(`<option value="">All Sub-Categories</option>`);
             if(categoryId > 0){
-                fetchSubcategories(categoryId);
+                fetchSubcategories(categoryId, subcategoryId);
             }
         }
 
         $(document).ready(function() {
+            let set_category;
+            let set_subcategory;
+            let set_format;
+            let set_language;
+            let set_status;
+
             const urlParams = new URLSearchParams(window.location.search);
             const searchQuery = urlParams.get('search') || ''; 
             if(searchQuery){
@@ -202,8 +236,58 @@
 
                 window.history.replaceState({}, document.title, url.pathname);
             }
+            
+            const categoryQuery = urlParams.get('category_id') || '';
+            if(categoryQuery){
+                set_category = categoryQuery;
 
-            fetchFilters();
+                const url = new URL(window.location.href);
+                url.searchParams.delete('category_id');
+
+                window.history.replaceState({}, document.title, url.pathname);
+            }
+
+            const subcategoryQuery = urlParams.get('subcategory_id') || '';
+            if(subcategoryQuery){
+                set_subcategory = subcategoryQuery;
+
+                const url = new URL(window.location.href);
+                url.searchParams.delete('subcategory_id');
+
+                window.history.replaceState({}, document.title, url.pathname);
+            }
+            
+            const formatQuery = urlParams.get('format_id') || '';
+            if(formatQuery){
+                set_format = formatQuery;
+
+                const url = new URL(window.location.href);
+                url.searchParams.delete('format_id');
+
+                window.history.replaceState({}, document.title, url.pathname);
+            }
+            
+            const languageQuery = urlParams.get('language_id') || '';
+            if(languageQuery){
+                set_language = languageQuery;
+
+                const url = new URL(window.location.href);
+                url.searchParams.delete('language_id');
+
+                window.history.replaceState({}, document.title, url.pathname);
+            }
+            
+            const statusQuery = urlParams.get('status_id') || '';
+            if(statusQuery){
+                set_status = statusQuery;
+
+                const url = new URL(window.location.href);
+                url.searchParams.delete('status_id');
+
+                window.history.replaceState({}, document.title, url.pathname);
+            }
+
+            fetchFilters(set_category, set_subcategory, set_format, set_language, set_status);
             fetchDocuments();
         });
     </script>

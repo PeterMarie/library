@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Details</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="top-header">
+            <div class="title-div" title="Home">
+                <img src="../images/qw_silver.png" alt="QuillWizards Logo">
+                <h1>QuillWizards Library</h1>
+            </div>
+            <nav class="nav-links">
+                <a href="index.php"><span class="nav-icon"><i class="fa fa-book"></i></span><span>Library Home</span></a>
+                <a href="https://www.quillwizards.com/"><span class="nav-icon"><i class="fa fa-house"></i></span><span>QuillWizards Home</span></a>
+            </nav>
+        </div>
+    </header>
+
+  <main class="container">
+    <div class="back-button">
+      <a href="javascript:history.back()">&larr; Back</a>
+    </div>
+
+    <div class="book-details">
+      <div class="book-cover">
+        <img id="bookCover" src="covers/default.png" alt="Book Cover" />
+      </div>
+
+      <div class="book-meta">
+        <h1 id="bookTitle">Loading...</h1>
+        <h3 id="bookSubtitle"></h3>
+        <p><strong>Series:</strong> <span id="bookSeries"></span></p>
+
+        <p>
+          <strong>Category:</strong> 
+          <a href="#" id="categoryLink"></a> &raquo; 
+          <a href="#" id="subcategoryLink"></a>
+        </p>
+
+        <p><strong>Authors:</strong> <span id="bookAuthors"></span></p>
+        <p><strong>Publisher:</strong> <span id="bookPublisher"></span></p>
+        <p><strong>Year:</strong> <span id="bookYear"></span></p>
+        <p><strong>Edition:</strong> <span id="bookEdition"></span></p>
+        <p><strong>ISBN:</strong> <span id="bookISBN"></span></p>
+        <p><strong>Language:</strong> <span id="bookLanguage"></span></p>
+        <p><strong>Pages:</strong> <span id="bookPages"></span></p>
+        <p><strong>Status:</strong> <span id="bookStatus"></span></p>
+        <p><strong>Keywords:</strong> <span id="bookKeywords"></span></p>
+        
+        <a id="downloadBtn" class="download-button" href="#" download>Download Book</a>
+      </div>
+    </div>
+
+    <div class="book-summary">
+      <h2>Summary</h2>
+      <p id="bookSummary">Loading...</p>
+    </div>
+
+    <div class="book-reviews">
+      <h2>Reviews</h2>
+      <div id="reviewSection">
+        <p>No reviews yet. Be the first to write one!</p>
+      </div>
+
+      <div class="review-form">
+        <h3>Write a Review</h3>
+        <form id="reviewForm">
+          <label for="reviewerName">Your Name:</label>
+          <input type="text" id="reviewerName" name="reviewerName" required />
+
+          <label for="reviewText">Your Review:</label>
+          <textarea id="reviewText" name="reviewText" rows="4" required></textarea>
+
+          <button type="submit">Submit Review</button>
+        </form>
+        <div id="reviewMessage" style="margin-top: 10px;"></div>
+      </div>
+    </div>
+
+  </main>
+    <footer>
+        &copy; 2025 QuillWizards. All rights reserved.
+    </footer>
+
+  <script>
+    // Load book info via fileId query param
+    $(document).ready(function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const fileId = urlParams.get("doc");
+
+      if (!fileId) {
+        alert("Invalid access: No Document provided.");
+        return;
+      }
+
+      $.getJSON("api/get_book.php", { fileId: fileId }, function (data) {
+        if (data.book.error) {
+          alert(data.book.error);
+          return;
+        }
+
+        $("#bookCover").attr("src", data.book.cover_image || "covers/default.png");
+        $("#bookTitle").text(data.book.title);
+        $("#bookSubtitle").text(data.book.subtitle);
+        $("#bookSeries").text(data.book.series_title || "N/A");
+
+        $("#categoryLink").text(data.book.category).attr("href", "viewer.html?category_id=" + data.book.category_id);
+        $("#subcategoryLink").text(data.book.subcategory).attr("href", "viewer.html?category_id=" + data.book.category_id + "&subcategory_id=" + data.book.subcategory_id);
+
+        const validAuthors = (data.book.authors || []).filter(author => author.toLowerCase() !== 'unknown');
+       // const authors = data.book.authors.map(author => `<a href="viewer.html?author=${encodeURIComponent(author)}">${author}</a>`).join(", ");
+       // $("#bookAuthors").html(authors);
+
+        $("#bookPublisher").text(data.book.publisher);
+        $("#bookYear").text(data.book.publication_year);
+        $("#bookEdition").text(data.book.edition);
+        $("#bookISBN").text(data.book.isbn);
+        $("#bookLanguage").text(data.book.language);
+        $("#bookPages").text(data.book.page_count);
+        $("#bookStatus").text(data.book.status_name);
+       // $("#bookKeywords").text(data.book.keywords.join(", "));
+        $("#bookSummary").text(data.book.summary);
+
+        $("#downloadBtn").attr("href", data.book.file_path);
+      });
+      
+    // Submit review
+    $("#reviewForm").on("submit", function (e) {
+      e.preventDefault();
+      const name = $("#reviewerName").val().trim();
+      const review = $("#reviewText").val().trim();
+
+      if (!name || !review) {
+        $("#reviewMessage").text("Please fill in both fields.");
+        return;
+      }
+
+      $.post("api/post_review.php", {
+        doc: fileId,
+        reviewerName: name,
+        reviewText: review
+      }, function (response) {
+        if (response.success) {
+          $("#reviewMessage").css("color", "green").text("Review submitted successfully!");
+          $("#reviewForm")[0].reset();
+          loadReviews(); // Reload reviews after submission
+        } else {
+          $("#reviewMessage").css("color", "red").text(response.error || "Failed to submit review.");
+        }
+      }, "json");
+    });
+
+    // Load reviews
+    function loadReviews() {
+      $.getJSON("api/get_reviews.php", { doc: fileId }, function (reviews) {
+        const $section = $("#reviewSection").empty();
+        if (!reviews.length) {
+          $section.append("<p>No reviews yet. Be the first to write one!</p>");
+          return;
+        }
+
+        reviews.forEach(review => {
+          $section.append(`
+            <div class="review">
+              <p><strong>${review.reviewer_name}</strong> says:</p>
+              <p>${review.review_text}</p>
+              <hr/>
+            </div>
+          `);
+        });
+      });
+    }
+
+    loadReviews(); 
+    });
+  </script>
+
+  <style>
+    .container {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .book-details {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .book-cover img {
+      max-width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .book-meta {
+      flex: 1;
+    }
+    .book-meta p {
+      margin: 0.5rem 0;
+    }
+    .book-summary, .book-reviews {
+      margin-top: 2rem;
+    }
+    .download-button {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.8rem 1.2rem;
+      background: #007BFF;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .download-button:hover {
+      background: #0056b3;
+    }
+    .back-button {
+      margin-bottom: 1rem;
+    }
+    .back-button a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }.review-form {
+  margin-top: 2rem;
+}
+
+.review-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 600px;
+}
+
+.review-form input,
+.review-form textarea {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.review-form button {
+  align-self: flex-start;
+  padding: 0.6rem 1.2rem;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.review-form button:hover {
+  background: #218838;
+}
+
+.review {
+  margin-bottom: 1.5rem;
+}
+
+  </style>
+</body>
+</html>
